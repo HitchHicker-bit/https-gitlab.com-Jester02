@@ -79,11 +79,31 @@
     var mouseClick = document.getElementById('mouseClick');
     var mouseLight = document.getElementById('mouseLight');
     var keyboardButton = document.getElementById('keyboardButton');
-
+    var hover = 0;
     mouseHover.onmouseenter = function(){
       console.log('hover');
       //
       var Color = document.getElementById('hoverResult');
+        hover++;
+      console.log(hover);
+     if (hover == 1){
+        var li = document.createElement('li');
+        li.className = 'green';
+        li.innerText = 'Hovered!';
+        Color.appendChild(li);
+      }
+      if (hover == 2){
+        var li_2 = document.createElement('li');
+        li_2.className = 'orange';
+        li_2.innerText = 'Hovered!';
+        Color.appendChild(li_2);
+      } 
+      if (hover == 3){
+        var li_3 = document.createElement('li');
+        li_3.className = 'purple';
+        li_3.innerText = 'Hovered!';
+        Color.appendChild(li_3);
+      }
     }
 
     var clickIndex = 0;
@@ -155,7 +175,23 @@
     var counter = 0;
     keyboardButton.onkeydown = function(){
         console.log('keydown');
+        var keyIs = document.getElementById('keyboardResult');
+        counter++;
+        if (counter == 1){
+          keyIs.classList.add('one');
+        } else if (counter == 3){
+          keyIs.classList.add('three');
+        } else if (counter == 5){
+          keyIs.classList.add('five');
+        } else if (counter == 11){
+          keyIs.classList.remove('one');
+          keyIs.classList.remove('three');
+          keyIs.classList.remove('five');
+          keyIs.classList.add('one' , 'one');
+        }
+        console.log(keyIs.classList);
     }
+
   </script>
 </body>
 </html>
