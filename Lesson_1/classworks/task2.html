@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+    <script>
+        var a = document.getElementById('test');
+		console.log(a);
+		var b = document.getElementById('app');
+		var b2 = b.querySelectorAll('button');
+		console.log(b2);
+		var c = document.getElementById('createArea');
+		console.log('closest' , c.closest('.wrap'));
+		var d = document.getElementById('list');
+		var d2 = d.getElementsByTagName('li');
+		console.log(d2);
+		var e = document.getElementById('list');
+		var e2 = e.getElementsByClassName('show test');
+		console.log(e2);
+    </script>
+</body>
+</html>
