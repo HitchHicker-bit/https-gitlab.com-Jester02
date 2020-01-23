@@ -50,3 +50,4 @@ function getRandomIntInclusive(min, max) {
     document.body.id = 'page';
     var pageColor = getElementById('page');
     pageColor.style.background = 'rgb('r + "," + g + "," + b')'; 
+    // Как в данном случае подставить на рандомленные числа под значения r, g, b
