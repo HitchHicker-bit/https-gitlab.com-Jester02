@@ -23,7 +23,15 @@
         */
 
         // Ваш код должен быть тут!
-        //То что я надумал не помогло( Как работать с атрибутами если нельзя обратиться к элементу по айди
+         if (event.target.getAttribute('data-color') == "green"){
+          document.body.style.backgroundColor = "green";
+         } else if (event.target.getAttribute('data-color') == "red"){
+          document.body.style.backgroundColor = "red";
+         } else if (event.target.getAttribute('data-color') == "blue"){
+          document.body.style.backgroundColor = "blue";
+         }
+
+
     }
     </script>
 </body>
