@@ -33,6 +33,25 @@
       При нажатии на кнопку close окно дожно закрываться.
 
     */
+     Close = document.getElementById('popup__close');
+      Close.onclick = function(){
+        var popupDiv = document.getElementById('popup');
+        popupDiv.classList.toggle('show');
+      } 
+      Open_1 = document.getElementById('popup_1');
+      Open_1.onclick = function(){
+        var popupDiv = document.getElementById('popup');
+        popupDiv.classList.toggle('show');
+      }
+      Open_2 = document.getElementById('popup_2');
+      Open_2.onclick = function(){
+        var popupDiv = document.getElementById('popup');
+        popupDiv.classList.toggle('show');
+        var Container = document.getElementById('popup__container');
+        var Divs = Container.getElementsByClassName('popup__item');
+        Divs.id = "popups";
+      }
+      //Как обратиться к элементу если у него нет айди и я не до конца понял как работать с аттрибутами
   </script>
 </body>
 </html>
