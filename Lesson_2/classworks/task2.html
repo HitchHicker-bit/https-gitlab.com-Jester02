@@ -86,24 +86,18 @@
       var Color = document.getElementById('hoverResult');
         hover++;
       console.log(hover);
-     if (hover == 1){
-        var li = document.createElement('li');
-        li.className = 'green';
-        li.innerText = 'Hovered!';
-        Color.appendChild(li);
-      }
-      if (hover == 2){
-        var li_2 = document.createElement('li');
-        li_2.className = 'orange';
-        li_2.innerText = 'Hovered!';
-        Color.appendChild(li_2);
-      } 
-      if (hover == 3){
-        var li_3 = document.createElement('li');
-        li_3.className = 'purple';
-        li_3.innerText = 'Hovered!';
-        Color.appendChild(li_3);
-      }
+    var Color = document.getElementById('hoverResult');
+      var colors = ['orange','green','purple','red','blue'];
+       function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+        var random = colors[getRandomIntInclusive(0,4)];    
+          var li = document.createElement('li');
+          li.innerText = 'Hovered!';
+          li.className = '' + random + '';
+          Color.appendChild(li);
     }
 
     var clickIndex = 0;

@@ -85,5 +85,5 @@ function getRandomIntInclusive(min, max) {
       // var click = document.getElementById('button');
       // click.onclick = function() {
       //     div.innerText = "(" +"#" + RR + GG + BB + ")";
-      //     document.body.bgColor = "#" + RR + GG + BB ;
+      //     document.body.style.bgColor = "#" + RR + GG + BB ;
       //  }
