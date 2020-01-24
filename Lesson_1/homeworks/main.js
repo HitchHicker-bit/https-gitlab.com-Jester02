@@ -44,10 +44,46 @@ function getRandomIntInclusive(min, max) {
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    var r = getRandomIntInclusive(0, 255);
-    var g = getRandomIntInclusive(0, 255);
-    var b = getRandomIntInclusive(0, 255);
-    document.body.id = 'page';
-    var pageColor = getElementById('page');
-    pageColor.style.background = 'rgb('r + "," + g + "," + b')'; 
-    // Как в данном случае подставить на рандомленные числа под значения r, g, b
+    // var r = getRandomIntInclusive(0, 255);
+    // var g = getRandomIntInclusive(0, 255);
+    // var b = getRandomIntInclusive(0, 255);
+    // document.body.style.background = "rgb" + "(" + r + "," + g + "," + b + ")";
+
+
+    // Второй вариант
+      // var r = getRandomIntInclusive(0, 255);
+      // var g = getRandomIntInclusive(0, 255);
+      // var b = getRandomIntInclusive(0, 255);
+      // var RR = r.toString(16);
+      // var GG = g.toString(16);
+      // var BB = b.toString(16);
+      // document.body.id = "page";
+      // var block = document.createElement('div');
+      //     block.id = "bonus";
+      //     block.style.position = "absolute";
+      //     block.style.overflow = "auto";
+      //     block.style.width = "100%";
+      //     block.style.height = "100%";
+      //     block.style.top = "0";
+      //     block.style.left = "0";
+      // var button = document.createElement('button');
+      //     button.id = "button";
+      //     button.style.width = '100px';
+      //     button.style.height = '60px';
+      //     button.innerText = "Change";
+      // var div = document.createElement('div');
+      //     div.id = "placeOfCode";
+      //     div.style.width = "300px";
+      //     div.style.height = "150px";
+      //     div.style.position = "absolute";
+      //     div.style.top = "50%";
+      //     div.style.left = "50%";
+      //     div.style.textAlign = "center";
+      //     block.appendChild(div);
+      //     block.appendChild(button);
+      //     page.appendChild(block);
+      // var click = document.getElementById('button');
+      // click.onclick = function() {
+      //     div.innerText = "(" +"#" + RR + GG + BB + ")";
+      //     document.body.bgColor = "#" + RR + GG + BB ;
+      //  }
