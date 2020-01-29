@@ -41,23 +41,21 @@
    var buttonContainer = document.getElementById('buttonContainer');
   var showButton = buttonContainer.querySelectorAll('.showButton');
   var tabContainer = document.getElementById('tabContainer');
-  var tab1 = tabContainer.querySelector('.tab[data-tab="1"]');
-  var tab2 = tabContainer.querySelector('.tab[data-tab="2"]');
-  var tab3 = tabContainer.querySelector('.tab[data-tab="3"]');
-  console.log(tab1);
+  var tabs = document.querySelectorAll('.tab[data-tab]');
+  console.log(buttonContainer.querySelectorAll('.showButton'));
   showButton.forEach(function(item){
     console.log(item);
     item.onclick =function(){
       var tab = item.getAttribute('data-tab');
-    if (tab == 1){
-      tab1.classList.add('active');
-    }
-    if (tab == 2){
-      tab2.classList.add('active');
-    }
-    if (tab == 3){
-      tab3.classList.add('active');
-    }
+      console.log(tab);
+      tabs.forEach(function(item){
+        console.log(item);
+        var numeric = item.getAttribute('data-tab');
+        console.log(numeric);
+        if (numeric == tab){
+          item.classList.toggle('active');
+        }
+      });
    }
   });
     var button = document.createElement('button');
@@ -69,13 +67,9 @@
         buttonContainer.appendChild(button);
     var hideCats = document.getElementById('hideAll');
         hideCats.onclick = function(){  
-         if (tab1.classList.contains('active') == true) {
-          tab1.classList.toggle('active');
-         } 
-         if (tab2.classList.contains('active') == true) {
-          tab2.classList.toggle('active');
-         }
-         if (tab3.classList.contains('active') == true) {
-          tab3.classList.toggle('active');
-         }
+        tabs.forEach(function(item){
+        if (item.classList.contains('active') == true){
+          item.classList.remove('active');
+        }
+      });
         }
