@@ -37,43 +37,30 @@
       var Close = document.getElementById('popup__close');
       Close.onclick = function(){
         popupDiv.classList.toggle('show');
-        if (popupItem1.classList.contains('show')){
-          popupItem1.classList.toggle('show');
-        }
-        if (popupItem2.classList.contains('show')) {
-          popupItem2.classList.toggle('show');
-        }
-        if (popupItem3.classList.contains('show')){
-          popupItem3.classList.toggle('show');
-        }
+        popupItems.forEach(function(item){
+          console.log(item);
+          if (item.classList.contains('show') == true){
+            item.classList.remove('show');
+          }
+        })
       }
       var buttons = document.getElementById('target');
-      var buttonsContainer = buttons.querySelectorAll('.popup__button');
-      console.log(buttonsContainer);
+      var buttonsContainer = buttons.querySelectorAll('.popup__button[data-popup]');
       var popupContainer = document.getElementById('popup__container');
-      var popupItems = popupContainer.querySelectorAll('.popup__item');
-      var popupItem1 = popupContainer.querySelector('.popup__item[data-popup="1"]');
-      var popupItem2 = popupContainer.querySelector('.popup__item[data-popup="2"]');
-      var popupItem3 = popupContainer.querySelector('.popup__item[data-popup="3"]');
-      console.log(popupItem1);
-      console.log(popupItem2);
-      console.log(popupItem3);
+      var popupItems = popupContainer.querySelectorAll('.popup__item[data-popup]');
       buttonsContainer.forEach(function(item){
         console.log(item);
         item.onclick = function(){
           popupDiv.classList.toggle('show');
-          var popup = item.getAttribute('data-popup');
-          console.log(popup);
-          if (popup == 1){
-            popupItem1.classList.toggle('show');
-          }
-          if (popup == 2){
-            popupItem2.classList.toggle('show');
-          }
-          if (popup == 3){
-            popupItem3.classList.toggle('show');
-          }
-        }
+          var id = item.getAttribute('data-popup');
+          console.log(id);
+          popupItems.forEach(function(item){
+            var data = item.getAttribute('data-popup');
+            if (data == id){
+              item.classList.toggle('show');
+            }
+          })
+       }
       });
       //Я очень извиняюсь всё это было в файликах материала , просто моя не внимательность сыграла тут роль и я не знал как выполнить задание
   </script>
