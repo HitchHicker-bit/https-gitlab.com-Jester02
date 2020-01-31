@@ -33,25 +33,36 @@
       При нажатии на кнопку close окно дожно закрываться.
 
     */
-     Close = document.getElementById('popup__close');
+     var popupDiv = document.getElementById('popup');
+      var Close = document.getElementById('popup__close');
       Close.onclick = function(){
-        var popupDiv = document.getElementById('popup');
         popupDiv.classList.toggle('show');
-      } 
-      Open_1 = document.getElementById('popup_1');
-      Open_1.onclick = function(){
-        var popupDiv = document.getElementById('popup');
-        popupDiv.classList.toggle('show');
+        popupItems.forEach(function(item){
+          console.log(item);
+          if (item.classList.contains('show') == true){
+            item.classList.remove('show');
+          }
+        })
       }
-      Open_2 = document.getElementById('popup_2');
-      Open_2.onclick = function(){
-        var popupDiv = document.getElementById('popup');
-        popupDiv.classList.toggle('show');
-        var Container = document.getElementById('popup__container');
-        var Divs = Container.getElementsByClassName('popup__item');
-        Divs.id = "popups";
-      }
-      //Как обратиться к элементу если у него нет айди и я не до конца понял как работать с аттрибутами
+      var buttons = document.getElementById('target');
+      var buttonsContainer = buttons.querySelectorAll('.popup__button[data-popup]');
+      var popupContainer = document.getElementById('popup__container');
+      var popupItems = popupContainer.querySelectorAll('.popup__item[data-popup]');
+      buttonsContainer.forEach(function(item){
+        console.log(item);
+        item.onclick = function(){
+          popupDiv.classList.toggle('show');
+          var id = item.getAttribute('data-popup');
+          console.log(id);
+          popupItems.forEach(function(item){
+            var data = item.getAttribute('data-popup');
+            if (data == id){
+              item.classList.toggle('show');
+            }
+          })
+       }
+      });
+      //Я очень извиняюсь всё это было в файликах материала , просто моя не внимательность сыграла тут роль и я не знал как выполнить задание
   </script>
 </body>
 </html>
