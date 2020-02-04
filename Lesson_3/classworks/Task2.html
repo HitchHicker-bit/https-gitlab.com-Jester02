@@ -1,0 +1,80 @@
+var srcHouse = houseArray[getRandomIntInclusive(0,2)];
+      var srcPlane = planeArray[getRandomIntInclusive(0,2)];
+      var srcTree = treeArray[getRandomIntInclusive(0,2)];
+      var idArray = ["rofl","keks","solo"];
+      var srcId = idArray[getRandomIntInclusive(0,2)];
+      function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+      var placeForShow = document.getElementById('chooseYourBlock');
+      var anotherImg = document.getElementById('result');
+      var plane = document.getElementById('PlaneButton');
+      plane.addEventListener('click', ShowImage);
+      var house = document.getElementById('HouseButton');
+      house.addEventListener('click', ShowImage);
+      var tree = document.getElementById('TreeButton');
+      tree.addEventListener('click', ShowImage);
+
+        function ShowImage (event){
+         if (event.target.id == "HouseButton"){
+
+          var img = document.createElement('img');
+              img.id = "House";
+              img.src = "https://image.flaticon.com/icons/svg/149/149064.svg";
+          var button = document.createElement('button');
+              button.id = "rofl";
+              button.innerText = "House";
+              anotherImg.appendChild(button);
+              placeForShow.appendChild(img);
+              var Image = placeForShow.children[0];
+              if (Image.id != "House"){
+              placeForShow.removeChild(Image);
+          var someHouse = anotherImg.children[0];
+              anotherImg.removeChild(someHouse);
+            }
+              var SynoImage = document.getElementById('rofl');
+              SynoImage.addEventListener('click', SynImg);
+              function SynImg (event){
+                var sImg = document.createElement('img');
+                    sImg.id = "synImg";
+                    sImg.src = srcHouse;
+                    anotherImg.appendChild(sImg);
+                     var SynonImage = anotherImg.children[1];
+                    if (SynonImage.id == "synImg"){
+                      var SynonImage = anotherImg.children[1];
+                    anotherImg.removeChild(SynonImage);
+                    }
+
+              }
+         }
+         if (event.target.id == "PlaneButton"){
+              var Image = placeForShow.children[0];
+              placeForShow.removeChild(Image);
+          var someHouse = anotherImg.children[0];
+              anotherImg.removeChild(someHouse);
+          var img = document.createElement('img');
+              img.id = "Plane";
+              img.src = "https://image.flaticon.com/icons/svg/579/579268.svg";
+          var button = document.createElement('button');
+              button.id = "rofl";
+              button.innerText = "Plane";
+              anotherImg.appendChild(button);
+              placeForShow.appendChild(img);
+         }
+         if (event.target.id == "TreeButton"){
+            var Image = placeForShow.children[0];
+              placeForShow.removeChild(Image);
+          var someHouse = anotherImg.children[0];
+              anotherImg.removeChild(someHouse);
+               var img = document.createElement('img');
+              img.id = "Tree";
+              img.src = "https://image.flaticon.com/icons/svg/620/620705.svg";
+          var button = document.createElement('button');
+              button.id = "rofl";
+              button.innerText = "Tree";
+              anotherImg.appendChild(button);
+              placeForShow.appendChild(img);
+         }
+        }
