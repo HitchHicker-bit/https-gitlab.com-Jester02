@@ -1,0 +1,28 @@
+var containers = document.querySelectorAll('.roadMap__container');
+          containers.forEach( function( container ){
+            console.log( container );
+            var ball = container.querySelector('.ball');
+            console.log( ball.dataset.id );
+            //.
+            var buttons = container.querySelectorAll('.navButton');
+            buttons.forEach(function(btn) {
+              btn.addEventListener('click',ChangeData);
+            })
+            function ChangeData (event) {
+              var direction = event.target.getAttribute('data-direction');
+              var roadMap = container.querySelectorAll('.roadMapPoint');
+              console.log(roadMap);
+              roadMap.forEach(function(item){
+                console.log(item.dataset.id);
+                var dataId = item.querySelector('[data-id]');
+                console.log(dataId);
+                if (direction == ">"){
+                  if (item.dataset.id > ball.dataset.id){
+                    ball.classList.toggle('ball');
+                    item.classList.toggle('ball');
+                  }
+                }
+              })
+              
+          }
+        })
