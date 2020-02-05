@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     var input_2 = document.getElementById('iEmail');
         input_2.addEventListener('input' , function(){
-        
             if (input_2.validity.typeMismatch){
                 input_2.setCustomValidity('Ну и зря, не получишь бандероль с яблоками!');
             } else {
@@ -21,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     var input_3 = document.getElementById('iPass');
         input_3.addEventListener('input', function(){
-        
             if (input_3.validity.valueMissing){
                 input_3.setCustomValidity('Я никому не скажу наш секрет');
             } else {
@@ -47,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
          })
      var input_6 = document.getElementById('iAgree');
          input_6.addEventListener('input', function(){
-        
             if (input_6.validity.valueMissing == true){
                 input_6.setCustomValidity('Необразованные живут дольше! Хорошо подумай!');
             } else {
