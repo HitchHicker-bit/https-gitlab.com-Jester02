@@ -88,17 +88,19 @@
         }
         function Images (a){
         var img = document.createElement('img');
+            img.style.width = '800px';
+            img.style.height = '600px';
             resultBlock.appendChild(img);
           if (a == Temperature[0]){
-            img.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Nuvola_weather_snow.svg/419px-Nuvola_weather_snow.svg.png";
+            img.src = "https://klike.net/uploads/posts/2019-01/1547712226_1.jpg";
             alert(country.value + "." + "В " + CitySelect.value + " лёгкий снегопад " + Temperature[0] + " градусов");
           }
           if (a == Temperature[1]){
-            img.src = "https://cdn.pixabay.com/photo/2016/03/18/15/05/rain-1265201_960_720.png";
+            img.src = "https://klike.net/uploads/posts/2019-02/1550818670_6.jpg";
             alert(country.value + "." + "В " + CitySelect.value + " сильный дождь " + Temperature[1] + " градусов");
           }
           if (a == Temperature[2]){
-            img.src = "https://png.clipart.me/previews/3b1/free-vector-weather-with-sun-and-clouds-25908.jpg";
+            img.src = "https://klike.net/uploads/posts/2019-02/1550818667_35.jpg";
             alert(country.value + "." + "В " + CitySelect.value + " засуха " + Temperature[2] + " градусов");
           }
       }
@@ -114,7 +116,6 @@
         })
       
     });
-
   </script>
 </head>
 <body>
