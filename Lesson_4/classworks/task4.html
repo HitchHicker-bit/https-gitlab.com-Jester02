@@ -28,6 +28,14 @@
       var ukraineCity = ['Kyiv', 'Lviv', 'Odesa', 'Charkiv'];
       var polandCity = ['Warszawa', 'Poznan', 'Krakow', 'Katowice'];
       var usaCity = ['New York', 'Los Angeles', 'Las Vegas', 'Chicago'];
+      var cold = getRandomIntInclusive(-10,0);
+      var rain = getRandomIntInclusive(0,30);
+      var sunny = getRandomIntInclusive(30,40);
+      var Temperature = [cold, rain, sunny];
+      var div = document.createElement('div');
+          div.id = "selectors";
+          document.body.appendChild(div);
+      var block = document.getElementById('selectors');
     var resultBlock = document.getElementById('result');  
     function getRandomIntInclusive(min, max) {
       min = Math.ceil(min);
@@ -38,37 +46,76 @@
       var startOpt = new Option("Выберите страну");
           startOpt.disabled = true;
           startOpt.selected = true;
-
       country.appendChild(startOpt);
-      countries.forEach(function(item, key){
+      countries.forEach(function(item){
         var selected = false;
         var defSelected = false;
         var option = new Option(item, item, defSelected, selected);
         country.appendChild(option);
-        country.onclick = function(event){
-          if (event.target.value == "Ukraine"){
-            var select = document.createElement('select');
-                select.id = "citys";
-                resultBlock.appendChild(select);
-                var cities = document.getElementById('citys');
-                var startOpti = new Option("Выберите город");
-                  startOpt.disabled = true;
-                  startOpt.selected = true;
-                cities.appendChild(startOpti);
-                 ukraineCity.forEach(function(item, key){
-                  var selected = false;
-                  var defSelected = false;
-                  var option = new Option(item, item, defSelected, selected);
-                  cities.appendChild(option);
-                  cities.onclick = function(event){
-
-                  }
-              })
-          }
-        }
       })    
+      function CityGen (a){
+        var select = document.createElement('select');
+            select.id = 'cities';
+            block.appendChild(select);
+        var CitySelect = document.getElementById('cities');
+        var startOpt = new Option("Выберите город");
+            startOpt.disabled = true;
+            startOpt.selected = true;
+            CitySelect.appendChild(startOpt);
+        if (a == countries[0]){
+          ukraineCity.forEach(function(item){
+          var selected = false;
+          var defSelected = false;
+          var option = new Option(item, item, defSelected, selected);
+          CitySelect.appendChild(option);
+         })    
+        }
+        if (a == countries[1]){
+        polandCity.forEach(function(item){
+        var selected = false;
+        var defSelected = false;
+        var option = new Option(item, item, defSelected, selected);
+        CitySelect.appendChild(option);
+         })    
+        }
+        if (a == countries[2]){
+        usaCity.forEach(function(item){
+        var selected = false;
+        var defSelected = false;
+        var option = new Option(item, item, defSelected, selected);
+        CitySelect.appendChild(option);
+         })    
+        }
+        function Images (a){
+        var img = document.createElement('img');
+            img.style.width = '800px';
+            img.style.height = '600px';
+            resultBlock.appendChild(img);
+          if (a == Temperature[0]){
+            img.src = "https://klike.net/uploads/posts/2019-01/1547712226_1.jpg";
+            alert(country.value + "." + "В " + CitySelect.value + " лёгкий снегопад " + Temperature[0] + " градусов");
+          }
+          if (a == Temperature[1]){
+            img.src = "https://klike.net/uploads/posts/2019-02/1550818670_6.jpg";
+            alert(country.value + "." + "В " + CitySelect.value + " сильный дождь " + Temperature[1] + " градусов");
+          }
+          if (a == Temperature[2]){
+            img.src = "https://klike.net/uploads/posts/2019-02/1550818667_35.jpg";
+            alert(country.value + "." + "В " + CitySelect.value + " засуха " + Temperature[2] + " градусов");
+          }
+      }
+        CitySelect.addEventListener('change' ,function(change){
+          resultBlock.innerHTML = null;
+          Images(Temperature[getRandomIntInclusive(0,2)]);
+         })
+        }
+      country.addEventListener('change', function(change){
+          block.innerHTML = null;
+          resultBlock.innerHTML = null;
+          CityGen(change.target.value);
+        })
+      
     });
-
   </script>
 </head>
 <body>
