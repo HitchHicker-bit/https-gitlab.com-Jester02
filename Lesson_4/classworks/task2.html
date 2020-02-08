@@ -53,8 +53,43 @@
         console.log(event.target.value);
         result.style.backgroundColor = event.target.value;
       })
+      var colors = document.getElementById("colorSelector");
+          colors.addEventListener('click', Show);
+      var selector = document.getElementById('popup');
+          selector.className = "popup";
+      var popBody = document.getElementById('popup_body');
+      function Show (event){
+          popBody.innerHTML = null;
+          selector.classList.toggle('show');
+          for (var i = 0; i < 21; i++){
+            var button = document.createElement('button');
+            button.className = "circle";
+            button.style.background = "rgb("+ getRandomIntInclusive(0,255) + "," + getRandomIntInclusive(0,255) + "," + getRandomIntInclusive(0,255) + ")";
+            popup_body.appendChild(button);
+            var h2 = document.createElement('h2');
+                h2.innerText = "Select color";
+                h2.style.position = "fixed";
+                h2.style.marginTop = "45px";
+            popup_body.appendChild(h2);
+            console.log(button.style.background);
+          var buttonCircle = popup_body.querySelectorAll('.circle');
+              buttonCircle.forEach(function(item){
+                item.addEventListener('click',Colorfication);
+              })   
+          }
+      }
+      function Colorfication (event){
+        console.log(event.target.style.background);
+        result.style.backgroundColor = event.target.style.background;
+        selector.classList.toggle('show');
+      }
+      function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
     });
-    
+        
 
   </script>
 </head>
@@ -71,9 +106,10 @@
     <div class="TemplatingResult">
       <div id="result" class="result"></div>
     </div>
-
+    <button id="colorSelector">Selector</button>
     <div id="popup">
-      
+    <div class="popup_body" id="popup_body">
+    </div>
     </div>
 
 
@@ -105,8 +141,33 @@
     .circle{
       width: 30px;
       height: 30px;
-      background: #eee;
+      background: black;
       border-radius: 50%;
+      margin-right: 10px;
+    }
+    .popup{
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+    }
+    .popup.show{
+    display: flex;
+    }
+    .popup_body{
+      width: 900px;
+    box-sizing: border-box;
+    position: relative;
+    padding: 10px 20px;
+    height: 80px;
+    background: #fff;
+    display: flex;
     }
   </style>
 </body>
