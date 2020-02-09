@@ -1,3 +1,16 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<head></head>
+<script>
  window.addEventListener("load", function () {
       var textValue = document.getElementById('newToDo');
       var addMeDo = document.getElementById('AddToDo');
@@ -5,24 +18,25 @@
       function AddMyDo (){
         console.log(listOfMyDo);
         var li = document.createElement('li');
-          li.className = "listItem";
+			li.className = "listItem";
         var input = document.createElement('input');
-          input.type = "checkbox";
-          input.className - "DoneCheckbox";
+			input.type = "checkbox";
+			input.className - "DoneCheckbox";
         var span = document.createElement('span');
-          span.className = "TodoText";
-          span.innerText = textValue.value;
+			span.className = "TodoText";
+			span.innerText = textValue.value;
         var button = document.createElement('button');
-          button.id = "remove";
-          button.innerText = "Remove";
-          li.appendChild(input); 
-          li.appendChild(span);
-          li.appendChild(button);
-          listOfMyDo.appendChild(li); 
+			button.id = "remove";
+			button.innerText = "Remove";
+			li.appendChild(input); 
+			li.appendChild(span);
+			li.appendChild(button);
+			listOfMyDo.appendChild(li); 
           var list = listOfMyDo.querySelectorAll('.listItem');
           list.forEach(function(item) {
             console.log(item);
-            var checkbox = item.querySelector('[type]');
+			var checkbox = item.querySelector('[type]');
+			console.log(checkbox);
             var spantext = item.querySelector('.TodoText');
             var removing = document.getElementById('remove');
             function checking (event){

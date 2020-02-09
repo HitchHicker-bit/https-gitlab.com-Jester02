@@ -64,27 +64,27 @@
             CitySelect.appendChild(startOpt);
         if (a == countries[0]){
           ukraineCity.forEach(function(item){
+            var selected = false;
+            var defSelected = false;
+            var option = new Option(item, item, defSelected, selected);
+            CitySelect.appendChild(option);
+          })    
+        }
+        if (a == countries[1]){
+          polandCity.forEach(function(item){
           var selected = false;
           var defSelected = false;
           var option = new Option(item, item, defSelected, selected);
           CitySelect.appendChild(option);
-         })    
-        }
-        if (a == countries[1]){
-        polandCity.forEach(function(item){
-        var selected = false;
-        var defSelected = false;
-        var option = new Option(item, item, defSelected, selected);
-        CitySelect.appendChild(option);
-         })    
+        })    
         }
         if (a == countries[2]){
-        usaCity.forEach(function(item){
-        var selected = false;
-        var defSelected = false;
-        var option = new Option(item, item, defSelected, selected);
-        CitySelect.appendChild(option);
-         })    
+          usaCity.forEach(function(item){
+          var selected = false;
+          var defSelected = false;
+          var option = new Option(item, item, defSelected, selected);
+          CitySelect.appendChild(option);
+        })    
         }
         function Images (a){
         var img = document.createElement('img');
