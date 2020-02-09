@@ -39,7 +39,7 @@
       }
       this.likes = 0;
   }
-  var Submitty = new Submits("Дима","Здарова пацаны");
+  var Submitty = new Submits("Dima","What's up guys?");
   let defUrl = {
     URL:"https://vk.com/id331833459?z=photo331833459_456240917%2Falbum331833459_0%2Frev",
     iLike :function(like){
@@ -48,26 +48,24 @@
         }
       }
   }
-  Object.setPrototypeOf(Submitty , defUrl);
-  Submitty.iLike("like");
-  console.log(Submitty.likes);
-
-
+  var CommentsArray = [];
   function Comments (comment){
-      this.comm = comment;
+    this.comment = comment;
+    CommentsArray.push(this.comment);
+    Object.setPrototypeOf(Submitty , defUrl);
   }
-  var myComment1 = new Comments("А давай я,");
-  var myComment2 = new Comments("типо грибок ");
-  var myComment3 = new Comments("прыгающий на ");
-  var myComment4 = new Comments("Супер Марио?) ");
-
-    var CommentsArray = [myComment1,myComment2,myComment3,myComment4];
-
-  function CommentFeed (a){
-    for (key in a){
-      console.log(object[key]);
+  var myComment1 = new Comments("Hey what about ");
+  var myComment2 = new Comments("i'll be mushroom ");
+  var myComment3 = new Comments("which jumping on ");
+  var myComment4 = new Comments("Super Mario?");
+  Submitty.iLike("like");
+  console.log(CommentsArray);
+  function CommentFeed (object){
+    for (key in object){
+      alert(object[key]);
     }
   }
-  CommentsFeed(CommentsArray);
-  var myComments = new CommentFeed(CommentsArray);
-      console.log(myComments);
+  CommentFeed(CommentsArray);
+
+
+ 
