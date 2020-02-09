@@ -81,31 +81,42 @@
 
       var containers = document.querySelectorAll('.roadMap__container');
           containers.forEach( function( container ){
-            console.log( container );
-            var ball = container.querySelector('.ball');
-            console.log( ball.dataset.id );
-            //.
-            var buttons = container.querySelectorAll('.navButton');
-            buttons.forEach(function(btn) {
-              btn.addEventListener('click',ChangeData);
-            })
-            function ChangeData (event) {
-              var direction = event.target.getAttribute('data-direction');
-              var roadMap = container.querySelectorAll('.roadMapPoint');
-              console.log(roadMap);
-              roadMap.forEach(function(item){
-                console.log(item.dataset.id);
-                  if (direction == ">"){
-                    if (item.classList.contains('ball') == true){
-                      item.classList.toggle('ball');
-                      if(item.dataset.id == ball.dataset.id){
-                        item.classList.toggle('ball');
-                      }
-                    }
-                  }
-              })
-              
-          }
+          //.
+            var prev = container.querySelector('.navButton[data-direction="<"]');
+            var next = container.querySelector('.navButton[data-direction=">"]');
+            next.addEventListener('click',nextItem);
+            prev.addEventListener('click',prevItem);
+            
+            function nextItem (){
+              var ball = container.querySelector('.ball');
+              var ballId = Number(ball.dataset.id);
+              var nextPoint = ballId + 1;
+              var mapPoints = container.querySelectorAll('.roadMapPoint');
+              var lastPointId =  Number(mapPoints.length);
+              console.log(lastPointId);
+              if (nextPoint > lastPointId ){
+                nextPoint = 1;
+              }
+              ballDetection(container, nextPoint);
+            }
+
+            function prevItem (){
+              var ball = container.querySelector('.ball');
+              var ballId = Number(ball.dataset.id);
+              var prevItem = ballId - 1;
+              var mapPoints = container.querySelectorAll('.roadMapPoint');
+              var firstPointId = Number(mapPoints.length - (mapPoints.length - 1));
+              console.log(firstPointId);
+              if (prevItem < firstPointId){
+                prevItem = Number(mapPoints.length);
+              }
+              ballDetection(container, prevItem);
+            }
+
+            function ballDetection(container, id){
+              container.querySelector('.ball').classList.remove('ball');
+              container.querySelector('.roadMapPoint[data-id="'+ id + '"]').classList.add('ball');
+            }
         })
     </script>
   </body>
