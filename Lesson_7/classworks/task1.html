@@ -76,13 +76,13 @@
           randomPopulation(population);
           console.log(population);
         }
-        const increasePopulation = (populationMultiplyRate) => {
+        const increasedPopulation = (populationMultiplyRate) => {
           let increasedPopulation = populationMultiplyRate * 100;
           let growedPopulation = increasedPopulation + population;
           console.log("За один цикл популяция людей возросла на "+growedPopulation);
         }
         this.growPopulation = function (){
-          increasdPopulation(populationMultiplyRate);
+          increasedPopulation(populationMultiplyRate);
         }
         const extinction = (populationMultiplyRate) => {
           let increasedPopulation = populationMultiplyRate * 100;
@@ -93,12 +93,12 @@
         this.Cataclysm = function () {
           extinction(populationMultiplyRate);
         }
-        this.rotatePlanet = function rotatePlanet() {
+        this.rotatePlanet = function () {
           let randomNumber = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
           if ( (randomNumber % 2) == 0) {
-          growPopulation();
+          this.growPopulation();
             } else {
-          Cataclysm();
+          this.Cataclysm();
           }
         }
       }
