@@ -27,18 +27,16 @@
   <div class="wrap">
       <div class="assigned">
         <form class="ObjForm">
-            <input name="key" placeholder="Enter your key"/>
-            <input name="value" placeholder="Enter your value"/>
-            <button type="submit">Send</button>
+            <input class="firstObjKey" name="key" placeholder="Enter your key"/>
+            <input class="firstObjValue" name="value" placeholder="Enter your value"/>
+            <button id="submit_1" type="submit">Send</button>
         </form>
         <div class="createResult">
           <header>
             Created Object
           </header>
           <div class="createdObj">
-            <code id="values">
-              { 
-              }
+            <code id="values_1">
             </code>
           </div>
         </div>
@@ -46,53 +44,79 @@
 
       <div class="assigned">
         <form class="ObjForm">
-            <input name="key" placeholder="Enter your key"/>
-            <input name="value" placeholder="Enter your value"/>
-            <button type="submit">Send</button>
+            <input class="secondObjKey" name="key" placeholder="Enter your key"/>
+            <input class="secondObjValue" name="value" placeholder="Enter your value"/>
+            <button id="submit_2" type="submit">Send</button>
           </form>
           <div class="createResult">
             <header>
               Created Object
             </header>
             <div class="createdObj">
-              <code id="values">
-                {
-                }
+              <code id="values_2">
               </code>
             </div>
           </div>
       </div>
     </div>
     <div class="resultBlock">
-       <button>Combine Objects!</button>
+       <button id="combining">Combine Objects!</button>
       <h3> Result: </h3>
       <div id="result"></div>
     </div>
 
       <script>
+        var CreatedObj = {
+          }
+        var CreatedObj2 = {
+          }
         function AddAttr (event){
           event.preventDefault();
-          var objValue = document.getElementById('values');
-          var name = document.querySelector('[name="key"]');
-          var nValue = document.querySelector('[name="value"]');
+          var objValue = document.getElementById('values_1');
+          var name = document.querySelector('.firstObjKey');
+          var nValue = document.querySelector('.firstObjValue');
           console.log(name.value);
           console.log(nValue.value);
+<<<<<<< HEAD
           function NewObj (key,value){
           this.key = key;
           this.value = value;
             key:value;
+=======
+          var objItem = document.createElement('span');
+              objItem.innerText = name.value +":"+ nValue.value + "\n";
+              objValue.appendChild(objItem);
+          CreatedObj[name.value] = nValue.value;
+          console.log(CreatedObj);        }
+        var submit_1 = document.getElementById('submit_1');
+            submit_1.addEventListener('click', AddAttr);
+          function AddAttr2 (event){
+            event.preventDefault();
+            var objValue_2 = document.getElementById('values_2');
+            var name = document.querySelector('.secondObjKey');
+            var nValue = document.querySelector('.secondObjValue');
+            var objItem = document.createElement('span');
+                objItem.innerText = name.value +":"+ nValue.value + "\n";
+                objValue_2.appendChild(objItem);
+            CreatedObj2[name.value] = nValue.value;
+            console.log(CreatedObj2);
+>>>>>>> b82c16ab4d7688a2c3dcbd4b7196a4e083fce221
           }
-          var CreatedObj = new NewObj(name.value,nValue.value);
-          console.log(CreatedObj);
-          objValue.innerHTML = `{
-            ${name.value}:${nValue.value}
-          }`;
-        }
-        
-        var submit = document.querySelectorAll('[type="submit"]');
-        submit.forEach(function(btn){
-          btn.addEventListener('click',AddAttr);
-        });      
+        var submit_2 = document.getElementById('submit_2');
+            submit_2.addEventListener('click',AddAttr2);
+            function CombiningObjects (event){
+              var ComboObj = Object.assign(CreatedObj,CreatedObj2);
+              console.log(ComboObj);
+              var ResultBlock = document.getElementById('result');
+                for (key in ComboObj){
+                  console.log(ComboObj[key]);
+                  var resultOfCombine = document.createElement('span');
+                      resultOfCombine.innerText = key + ":" + ComboObj[key] + "\n";
+                      ResultBlock.appendChild(resultOfCombine);
+                }
+            }
+        var combo = document.getElementById('combining');
+            combo.addEventListener('click', CombiningObjects);
       </script>
       <style>
         .wrap{
