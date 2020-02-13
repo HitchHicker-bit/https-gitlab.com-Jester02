@@ -81,32 +81,55 @@
 
       var containers = document.querySelectorAll('.roadMap__container');
           containers.forEach( function( container ){
-            console.log( container );
-            var ball = container.querySelector('.ball');
-            console.log( ball.dataset.id );
-            //.
-            var buttons = container.querySelectorAll('.navButton');
-            buttons.forEach(function(btn) {
-              btn.addEventListener('click',ChangeData);
-            })
-            function ChangeData (event) {
-              var direction = event.target.getAttribute('data-direction');
-              var roadMap = container.querySelectorAll('.roadMapPoint');
-              console.log(roadMap);
-              roadMap.forEach(function(item){
-                console.log(item.dataset.id);
-                  if (direction == ">"){
-                    if (item.classList.contains('ball') == true){
-                      item.classList.toggle('ball');
-                      if(item.dataset.id == ball.dataset.id){
-                        item.classList.toggle('ball');
-                      }
-                    }
-                  }
-              })
-              
-          }
-        })
+
+            var prev = container.querySelector('.navButton[data-direction="<"]');
+            var next = container.querySelector('.navButton[data-direction=">"]');
+
+            prev.addEventListener('click', movePrev );
+            next.addEventListener('click', moveNext );
+            
+            container.querySelectorAll('.navButton').forEach( function( btn ){
+                if( btn.dataset.direction === ">"){
+                    btn.addEventListener('click', moveNext );
+                } else {
+                    btn.addEventListener('click', movePrev );
+                }
+            });
+
+            function getBallPosition( container ){
+              var ball = container.querySelector('.ball');
+              return Number(ball.dataset.id);
+            }
+
+            function moveNext(){
+              var nextId = getBallPosition( container ) + 1;
+              var allItems = container.querySelectorAll('.roadMapPoint');
+              var lastItemId = Number( allItems[ allItems.length - 1 ].dataset.id );
+
+              if( nextId > lastItemId ){
+                nextId = 1;
+              }
+              renderBall( container, nextId );
+            }
+
+            function movePrev(){
+              var prevId = getBallPosition( container ) - 1;
+              var allItems = container.querySelectorAll('.roadMapPoint');
+              var firstItemId = Number( allItems[ 0 ].dataset.id );
+
+              if( prevId < firstItemId ){
+                prevId = allItems[ allItems.length -1 ].dataset.id;
+              }
+
+              renderBall( container, prevId );
+            }
+
+            function renderBall( container, id ){
+              container.querySelector('.ball').classList.remove('ball');
+              container.querySelector('.roadMapPoint[data-id="' + id + '"').classList.add('ball');
+            }
+
+        });
     </script>
   </body>
 

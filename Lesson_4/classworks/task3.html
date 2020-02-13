@@ -1,17 +1,25 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
-</html>
-<head></head>
-<script>
- window.addEventListener("load", function () {
+  <title>Form work1</title>
+  <script>
+    /*
+      Задание:
+        Создать список дел, в который можно:
+        - Добавить новый элемент
+        - Удалить элемент
+        - Задать что пункт выполнен
+
+      Шаблон элемента:
+        <li class="listItem">
+            <input type="checkbox" class="DoneCheckbox" />
+            <span class="TodoText">{add text}</span>
+            <button>Remove</button>
+        </li>
+
+    */
+    window.addEventListener("load", function () {
       var textValue = document.getElementById('newToDo');
       var addMeDo = document.getElementById('AddToDo');
       var listOfMyDo = document.getElementById('toDoList');
@@ -20,8 +28,8 @@
         var li = document.createElement('li');
 			li.className = "listItem";
         var input = document.createElement('input');
-			input.type = "checkbox";
-			input.className - "DoneCheckbox";
+          input.type = "checkbox";
+          input.className = "DoneCheckbox";
         var span = document.createElement('span');
 			span.className = "TodoText";
 			span.innerText = textValue.value;
@@ -35,8 +43,7 @@
           var list = listOfMyDo.querySelectorAll('.listItem');
           list.forEach(function(item) {
             console.log(item);
-			var checkbox = item.querySelector('[type]');
-			console.log(checkbox);
+            var checkbox = item.querySelector('.DoneCheckbox');
             var spantext = item.querySelector('.TodoText');
             var removing = document.getElementById('remove');
             function checking (event){
@@ -55,7 +62,6 @@
            checkbox.addEventListener('click',checking);
           })
       }
-       
         addMeDo.addEventListener('click', AddMyDo);
     });
 
