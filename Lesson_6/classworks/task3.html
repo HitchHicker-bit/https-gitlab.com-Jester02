@@ -35,8 +35,36 @@
       }
     }
     SortList(ITEA_COURSES);
+      var input = document.createElement('input');
+          input.type = "search";
+          input.id = "map";
+      var button = document.createElement('button');
+          button.id = "search";
+          button.innerText = "SEARCH";
+          myResults.appendChild(button);    
+          myResults.appendChild(input);
+      var serchingItem = document.getElementById('map');
+      function Mapping (event){
+        function Filtring(query){
+          return ITEA_COURSES.filter(function(item){
+            return item.toLowerCase().indexOf(query.toLowerCase()) > -1;
+          })
+        }
+        var filteredArray = Filtring(serchingItem.value);
+        var div = document.createElement('div');
+          div.id = "searchResult";
+          myResults.appendChild(div);
+        var searching = document.getElementById('searchResult');
+        searching.innerHTML = null;
+          for (key in filteredArray){
+            var span = document.createElement('span');
+                span.innerText = filteredArray[key] + ", ";
+                searching.appendChild(span);
+          }
+        }
+      let searchBtn = document.getElementById('search');
+          searchBtn.addEventListener('click', Mapping);
     
-  
     /*
       Задание 2:
       Написать фильтр массива по:
@@ -53,7 +81,9 @@
           
     */
 
-      var stars = ['Elijah Wood', 'Ian McKellen', 'Orlando Bloom','Ewan McGregor',' Liam Neeson', 'Natalie Portman', 'Ewan McGregor', 'Billy Bob Thornton', 'Martin Freeman']
+         
+
+      var stars = ['Elijah Wood', 'Ian McKellen', 'Orlando Bloom','Ewan McGregor',' Liam Neeson', 'Natalie Portman', 'Ewan McGregor', 'Billy Bob Thornton', 'Martin Freeman'];
       var movies = [
             {
               name: "Lord of the Rigs",
@@ -77,6 +107,105 @@
           }
         ];
 
+        var div = document.createElement('div');
+            div.id = "Selectors";
+            myResults.appendChild(div);
+        var filmAttrSelecting = document.getElementById('Selectors');
+        var FiltredDuration = [];
+        var FilmStars = [];
+            function Duration (item){
+              for (var i = 0; i < item.length; i++){
+                for (key in item[i]){
+                  if (typeof item[i][key] == 'number'){
+                      FiltredDuration.push(item[i][key]);
+                  }
+                }     
+              }
+            }
+            function StarringOfStar (item){
+                for (key in item){
+                  FilmStars.push(item[key].starring);
+                }
+            }
+            StarringOfStar(movies);
+            Duration(movies);
+            console.log(FilmStars);
+            console.log(FiltredDuration);
+        var Name = document.createElement('select');
+            Name.id = "names";
+            filmAttrSelecting.appendChild(Name);
+        var namesOfStars = document.getElementById('names');
+            var startOpt = new Option("Выберите актера");
+            startOpt.disabled = true;
+            startOpt.selected = true;
+            namesOfStars.appendChild(startOpt);
+            stars.forEach(function(item){
+              var selected = false;
+              var defSelected = false;
+              var option = new Option(item, item, defSelected, selected);
+              namesOfStars.appendChild(option);
+            })
+        var StarNameSelector = "";
+            namesOfStars.addEventListener('change', function(change){
+              StarNameSelector = change.target.value;
+            })
+        var filmDura = document.createElement('select');
+            filmDura.id = "duration";
+            filmAttrSelecting.appendChild(filmDura);
+        var filmDuration = document.getElementById('duration');
+            var startOpt = new Option("Выберите продолжительность");
+            startOpt.disabled = true;
+            startOpt.selected = true;
+            filmDuration.appendChild(startOpt);
+            FiltredDuration.forEach(function(item){
+              var selected = false;
+              var defSelected = false;
+              var option = new Option("От "+ item + " мин", Number(item), defSelected, selected);
+              filmDuration.appendChild(option);
+            })
+        var findFilm = document.createElement('button');
+            findFilm.id = "findMyFilm";
+            findFilm.innerText = "Найти фильм";
+            filmAttrSelecting.appendChild(findFilm);
+        var DurationSelector = 0;
+            filmDuration.addEventListener('change', function(change){
+              DurationSelector = change.target.value;
+              console.log(change.target.value);
+            });
+
+            for (var i = 0; i<FilmStars.length; i++){
+              for (var j = 0; j < FilmStars[i].length; j++){
+                console.log(i);
+                console.log(FilmStars[i][j]);
+              }
+            }
+            function FilmSearching(event){
+              var keyForFilter = 0;
+              var keyOfStar = 0;
+              var keyOfDuration = 0;
+              function FilterForFilm (starname){
+                for (var i = 0; i < FilmStars.length; i++){
+                  for (var j= 0; j < FilmStars[i].length; j++){
+                    if (starname == FilmStars[i][j]){
+                      keyOfStar = i;
+                      console.log(keyOfStar);
+                    }
+                  }
+                }
+              }
+              function FilterForFilm_2 (duration){
+                for (var h = 0; h < FiltredDuration.length; h++){
+                  if (duration == FiltredDuration[h]){
+                    keyOfDuration = h;
+                    console.log(keyOfDuration);
+                  }
+                }
+              }
+              FilterForFilm(StarNameSelector);
+              FilterForFilm_2(DurationSelector);
+            }
+        var startSearch = document.getElementById('findMyFilm');
+            startSearch.addEventListener('click',FilmSearching);
     </script>
 </body>
 </html>
