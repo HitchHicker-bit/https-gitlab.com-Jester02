@@ -145,6 +145,13 @@
               var option = new Option(item, item, defSelected, selected);
               namesOfStars.appendChild(option);
             })
+<<<<<<< HEAD
+=======
+        var StarNameSelector = "";
+            namesOfStars.addEventListener('change', function(change){
+              StarNameSelector = change.target.value;
+            })
+>>>>>>> e00476e2a6287385b5f526e5f468d61d234416e1
         var filmDura = document.createElement('select');
             filmDura.id = "duration";
             filmAttrSelecting.appendChild(filmDura);
@@ -156,7 +163,11 @@
             FiltredDuration.forEach(function(item){
               var selected = false;
               var defSelected = false;
+<<<<<<< HEAD
               var option = new Option("До "+ item + " мин", Number(item), defSelected, selected);
+=======
+              var option = new Option("От "+ item + " мин", Number(item), defSelected, selected);
+>>>>>>> e00476e2a6287385b5f526e5f468d61d234416e1
               filmDuration.appendChild(option);
             })
         var findFilm = document.createElement('button');
