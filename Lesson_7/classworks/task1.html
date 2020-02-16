@@ -66,29 +66,30 @@
 
       function MyPlanet (name){
         this.name = name;
-        let population = 0;
+        this.population = 0;
+        const Population = getRandomIntInclusive(1000,10000);
         const populationMultiplyRate = getRandomIntInclusive(1,10);
-        const randomPopulation = (randomPopulation) => {
-          randomPopulation = getRandomIntInclusive(1000,10000);
-          population = randomPopulation;
-        }
+        const randomPopulation = (population) => {
+         this.population += population;
+        } 
         this.myPopulation = function (){
-          randomPopulation(population);
-          console.log(population);
+          randomPopulation(Population);
         }
         const increasedPopulation = (populationMultiplyRate) => {
+          this.myPopulation();
           let increasedPopulation = populationMultiplyRate * 100;
-          let growedPopulation = increasedPopulation + population;
-          console.log("За один цикл популяция людей возросла на "+growedPopulation);
+          this.population += increasedPopulation;
+          console.log("За один цикл популяция людей возросла на "+ increasedPopulation + ".Теперь нас "+ this.population);
         }
         this.growPopulation = function (){
           increasedPopulation(populationMultiplyRate);
         }
         const extinction = (populationMultiplyRate) => {
+          this.myPopulation();
           let increasedPopulation = populationMultiplyRate * 100;
-          let extinctiedPopulation = population - increasedPopulation;
-          let diedPeoples = population - extinctiedPopulation;
-          console.log("От катаклизма погибло " + diedPeoples + " человек на планете." + "И осталось " + extinctiedPopulation);
+          let extinctiedPopulation = increasedPopulation;
+          this.population -= extinctiedPopulation;
+          console.log("От катаклизма погибло " + extinctiedPopulation  + " человек на планете." + "И осталось " + this.population);
         }
         this.Cataclysm = function () {
           extinction(populationMultiplyRate);
@@ -103,22 +104,15 @@
         }
       }
       let Mars = new MyPlanet("Марс");
-      Mars.myPopulation();
       Mars.rotatePlanet();
-      Mars.myPopulation();
       Mars.rotatePlanet();
-      Mars.myPopulation();
       Mars.rotatePlanet();
-      Mars.myPopulation();
       Mars.rotatePlanet();
-      Mars.myPopulation();
       Mars.rotatePlanet();
-      Mars.myPopulation();
       Mars.rotatePlanet();
-      Mars.myPopulation();
       Mars.rotatePlanet();
-      Mars.myPopulation();
       Mars.rotatePlanet();
+
   </script>
 </body>
 </html>
