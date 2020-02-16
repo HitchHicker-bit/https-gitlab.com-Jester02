@@ -145,10 +145,6 @@
               var option = new Option(item, item, defSelected, selected);
               namesOfStars.appendChild(option);
             })
-        var StarNameSelector = "";
-            namesOfStars.addEventListener('change', function(change){
-              StarNameSelector = change.target.value;
-            })
         var filmDura = document.createElement('select');
             filmDura.id = "duration";
             filmAttrSelecting.appendChild(filmDura);
@@ -160,50 +156,36 @@
             FiltredDuration.forEach(function(item){
               var selected = false;
               var defSelected = false;
-              var option = new Option("От "+ item + " мин", Number(item), defSelected, selected);
+              var option = new Option("До "+ item + " мин", Number(item), defSelected, selected);
               filmDuration.appendChild(option);
             })
         var findFilm = document.createElement('button');
             findFilm.id = "findMyFilm";
             findFilm.innerText = "Найти фильм";
             filmAttrSelecting.appendChild(findFilm);
-        var DurationSelector = 0;
-            filmDuration.addEventListener('change', function(change){
-              DurationSelector = change.target.value;
-              console.log(change.target.value);
-            });
-
-            for (var i = 0; i<FilmStars.length; i++){
-              for (var j = 0; j < FilmStars[i].length; j++){
-                console.log(i);
-                console.log(FilmStars[i][j]);
-              }
-            }
+        var ResultDiv = document.createElement('div');
+            ResultDiv.id = "resultOfSearch";
+            filmAttrSelecting.appendChild(ResultDiv);
+        var ResultBlock = document.getElementById('resultOfSearch');
             function FilmSearching(event){
-              var keyForFilter = 0;
-              var keyOfStar = 0;
-              var keyOfDuration = 0;
-              function FilterForFilm (starname){
-                for (var i = 0; i < FilmStars.length; i++){
-                  for (var j= 0; j < FilmStars[i].length; j++){
-                    if (starname == FilmStars[i][j]){
-                      keyOfStar = i;
-                      console.log(keyOfStar);
-                    }
+               ResultBlock.innerHTML = null;
+             function searchHandler(){
+                const selected_actor = document.getElementById('names').value;
+                const searchResult = movies.filter( movie => {
+                return movie.starring.some( actor => actor === selected_actor );
+                });
+                const selected_duration = document.getElementById('duration').value;
+                for (var i = 0; i<searchResult.length; i++){
+                  if (searchResult[i].duration <= selected_duration){
+                    console.log(searchResult[i].name);
+                    var span = document.createElement('span');
+                        span.innerText = searchResult[i].name + "\n";
+                        ResultBlock.appendChild(span);
                   }
                 }
               }
-              function FilterForFilm_2 (duration){
-                for (var h = 0; h < FiltredDuration.length; h++){
-                  if (duration == FiltredDuration[h]){
-                    keyOfDuration = h;
-                    console.log(keyOfDuration);
-                  }
-                }
+              searchHandler(); 
               }
-              FilterForFilm(StarNameSelector);
-              FilterForFilm_2(DurationSelector);
-            }
         var startSearch = document.getElementById('findMyFilm');
             startSearch.addEventListener('click',FilmSearching);
     </script>
