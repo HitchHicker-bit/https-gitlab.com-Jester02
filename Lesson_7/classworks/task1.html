@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Constructors</title>
+</head>
+<body>
+  <div class="wrap"></div>
+  <script>
+  /*
+
+    Задание:
+
+    Написать функцию конструктор, которая будет иметь приватные и публичные свойства.
+    Публичные методы должны вызывать приватные.
+
+    Рассмотрим на примере планеты:
+
+      - На вход принимаются параметр Имя планеты.
+
+      Создается новый обьект, который имеет публичные методы и свойства:
+      - name (передается через конструктор)
+      - population ( randomPopulation());
+      - rotatePlanet(){
+        let randomNumber = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+        if ( (randomNumber % 2) == 0) {
+          growPopulation();
+        } else {
+          Cataclysm();
+        }
+      }
+
+      Приватное свойство:
+      populationMultiplyRate - случайное число от 1 до 10;
+
+      Приватные методы
+      randomPopulation -> Возвращает случайное целое число от 1.000 до 10.000
+      growPopulation() {
+        функция которая берет приватное свойство populationMultiplyRate
+        которое равняется случайному числу от 1 до 10 и умножает его на 100.
+        Дальше, число которое вышло добавляет к популяции и выводит в консоль сообщение,
+        что за один цикл прибавилось столько населения на планете .
+      }
+      Cataclysm(){
+        Рандомим число от 1 до 10 и умножаем его на 250;
+        То число которое получили, отнимаем от популяции.
+        В консоль выводим сообщение - от катаклизма погибло Х человек на планете.
+      }
+      
+      let Mars = new Planet('Mars');
+
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+  */  
+  function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+      function MyPlanet (name){
+        this.name = name;
+        this.population = 0;
+        const Population = getRandomIntInclusive(1000,10000);
+        const populationMultiplyRate = getRandomIntInclusive(1,10);
+        const randomPopulation = (population) => {
+         this.population += population;
+        } 
+        this.myPopulation = function (){
+          randomPopulation(Population);
+        }
+        const increasedPopulation = (populationMultiplyRate) => {
+          this.myPopulation();
+          let increasedPopulation = populationMultiplyRate * 100;
+          this.population += increasedPopulation;
+          console.log("За один цикл популяция людей возросла на "+ increasedPopulation + ".Теперь нас "+ this.population);
+        }
+        this.growPopulation = function (){
+          increasedPopulation(populationMultiplyRate);
+        }
+        const extinction = (populationMultiplyRate) => {
+          this.myPopulation();
+          let increasedPopulation = populationMultiplyRate * 100;
+          let extinctiedPopulation = increasedPopulation;
+          this.population -= extinctiedPopulation;
+          console.log("От катаклизма погибло " + extinctiedPopulation  + " человек на планете." + "И осталось " + this.population);
+        }
+        this.Cataclysm = function () {
+          extinction(populationMultiplyRate);
+        }
+        this.rotatePlanet = function () {
+          let randomNumber = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+          if ( (randomNumber % 2) == 0) {
+          this.growPopulation();
+            } else {
+          this.Cataclysm();
+          }
+        }
+      }
+      let Mars = new MyPlanet("Марс");
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+      Mars.rotatePlanet();
+
+  </script>
+</body>
+</html>

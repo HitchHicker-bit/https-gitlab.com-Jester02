@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Classwork</title>
+
+    <script>
+    /*
+      Задание:
+        1. Используя интерфейс который есть на страничке, написать визуальный
+        конструктор обектов используя значение key-value, которые вводятся в
+        соответствующие поля в форме.
+
+        2. Каждый созданый обьект выводить в тег code после добавления каждого
+        нового поля. Т.е мы должны визуально видить в каком состоянии наши обьекты
+        сейчас
+
+        3. По нажатию кнопки Combine Objects! два обьекта должны обьедениться
+        используя метод Object.assing или spread operator и вывестись на стринчку.
+
+        * Изменять HTML можно.
+
+    */
+    </script>
+</head>
+<body>
+  <div class="wrap">
+      <div class="assigned">
+        <form class="ObjForm">
+            <input class="firstObjKey" name="key" placeholder="Enter your key"/>
+            <input class="firstObjValue" name="value" placeholder="Enter your value"/>
+            <button id="submit_1" type="submit">Send</button>
+        </form>
+        <div class="createResult">
+          <header>
+            Created Object
+          </header>
+          <div class="createdObj">
+            <code id="values_1">
+            </code>
+          </div>
+        </div>
+      </div>
+
+      <div class="assigned">
+        <form class="ObjForm">
+            <input class="secondObjKey" name="key" placeholder="Enter your key"/>
+            <input class="secondObjValue" name="value" placeholder="Enter your value"/>
+            <button id="submit_2" type="submit">Send</button>
+          </form>
+          <div class="createResult">
+            <header>
+              Created Object
+            </header>
+            <div class="createdObj">
+              <code id="values_2">
+              </code>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="resultBlock">
+       <button id="combining">Combine Objects!</button>
+      <h3> Result: </h3>
+      <div id="result"></div>
+    </div>
+
+      <script>
+        var CreatedObj = {
+          }
+        var CreatedObj2 = {
+          }
+        function AddAttr (event){
+          event.preventDefault();
+          var objValue = document.getElementById('values_1');
+          var name = document.querySelector('.firstObjKey');
+          var nValue = document.querySelector('.firstObjValue');
+          console.log(name.value);
+          console.log(nValue.value);
+          var objItem = document.createElement('span');
+              objItem.innerText = name.value +":"+ nValue.value + "\n";
+              objValue.appendChild(objItem);
+          CreatedObj[name.value] = nValue.value;
+          console.log(CreatedObj);        }
+        var submit_1 = document.getElementById('submit_1');
+            submit_1.addEventListener('click', AddAttr);
+          function AddAttr2 (event){
+            event.preventDefault();
+            var objValue_2 = document.getElementById('values_2');
+            var name = document.querySelector('.secondObjKey');
+            var nValue = document.querySelector('.secondObjValue');
+            var objItem = document.createElement('span');
+                objItem.innerText = name.value +":"+ nValue.value + "\n";
+                objValue_2.appendChild(objItem);
+            CreatedObj2[name.value] = nValue.value;
+            console.log(CreatedObj2);
+          }
+        var submit_2 = document.getElementById('submit_2');
+            submit_2.addEventListener('click',AddAttr2);
+            function CombiningObjects (event){
+              var ComboObj = Object.assign(CreatedObj,CreatedObj2);
+              console.log(ComboObj);
+              var ResultBlock = document.getElementById('result');
+                for (key in ComboObj){
+                  console.log(ComboObj[key]);
+                  var resultOfCombine = document.createElement('span');
+                      resultOfCombine.innerText = key + ":" + ComboObj[key] + "\n";
+                      ResultBlock.appendChild(resultOfCombine);
+                }
+            }
+        var combo = document.getElementById('combining');
+            combo.addEventListener('click', CombiningObjects);
+      </script>
+      <style>
+        .wrap{
+          width: 800px;
+          display: flex;
+        }
+        .ObjForm,
+        .resultBlock{
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          box-sizing: border-box;
+          padding: 10px 20px;
+        }
+
+        .assigned{
+          width: 300px;
+          display: flex;
+        }
+        .createResult header{
+          font-weight: 700;
+        }
+      </style>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Constructors</title>
+<meta charset="UTF-8">
+<title>Constructors</title>
+</head>
+<body>
+<div class="wrap">
+<header>
+	<form id="message_form">
+	<label for="author">
+		<span>Author</span>
+		<select id="author" name="author">
+		<option value="Taras Shevchenko">Taras Shevchenko</option>
+		<option value="Ivan Franko">Ivan Franko</option>
+		<option value="Vasyl Stys">Vasyl Stys</option>
+		<option value="Oles Gonchar">Oles Gonchar</option>
+		</select>
+	</label>
+
+	<label for="message">
+		<span>Message</span>
+		<textarea placeholder="Your Message" id="message"></textarea>
+	</label>
+
+	<button type="submit">Send Message</button>
+	</form>
+</header>
+
+<section>
+	<ul id="message_list">
+	<!-- <li data-id="awda">
+		<div class="message__date">
+			27/01/2018
+		</div>
+		<div class="message__author">
+			<b>Ivan Franko</b>
+		</div>
+		<div class="message__text">
+			Ночі безмірнії, ночі безсоннії...
+		</div>
+		<div class="message__controls">
+			<button class="_skipMessage">Skip</button>
+			<button class="_answerMessage">Answer</button>
+		</div>
+
+		<ul class="answers"></ul>
+	</li> -->
+	</ul>
+
+</section>
+
+</div>
+
+<script>
+
+class Message {
+	constructor( author, text ){
+		let currentDate = new Date();
+
+		this.id = currentDate.getTime();
+		this.author = author;
+		this.text = text; 
+		this.date = currentDate;
+		this.answers = [];
+
+		this.node = null;
+
+		this.skipMessage = this.skipMessage.bind( this );
+		this.showAnswerWindow = this.showAnswerWindow.bind( this );
+		this.createAnswer = this.createAnswer.bind( this );
+		this.removeAnswerForm = this.removeAnswerForm.bind( this );
+	}
+
+	skipMessage(){
+		this.node.remove();
+	}
+
+	removeAnswerForm(){
+		let answ_form = this.node.querySelector('._answer_form');
+		answ_form.remove();
+	}
+
+	createAnswer(e) {
+		e.preventDefault();
+		let render_target = this.node.querySelector('._answer_list');
+		let answ_author = this.node.querySelector('._answer_author').value;
+		let answ_value = this.node.querySelector('._answer_message').value;
+
+		console.log( answ_author, answ_value);
+		let answer = new Answer( answ_author, answ_value, this.id );
+		answer.render( render_target );
+		
+		this.answers.push( answer );
+		this.removeAnswerForm();
+
+	}
+
+	showAnswerWindow(){
+		console.log('showAnswerWindow', this );
+		const classBlock = document.createElement('div');
+		classBlock.innerHTML = `
+			<form class="_answer_form">
+				<label for="author">
+					<span>Author</span>
+					<select class="_answer_author" name="author">
+						<option value="Taras Shevchenko">Taras Shevchenko</option>
+						<option value="Ivan Franko">Ivan Franko</option>
+						<option value="Vasyl Stys">Vasyl Stys</option>
+						<option value="Oles Gonchar">Oles Gonchar</option>
+					</select>
+				</label>
+				<label for="message">
+					<span>Message</span>
+					<textarea class="_answer_message" placeholder="Your Message"></textarea>
+				</label>
+				<button class="_send_answer" type="submit">Send Answer</button>
+			</form>
+		`;
+
+		classBlock.querySelector('._answer_form').addEventListener('submit', this.createAnswer )
+		this.node.appendChild( classBlock );
+	}
+
+
+	render( target ){
+		
+		let messageBlock = document.createElement('li');
+			messageBlock.dataset.id = this.id;
+			messageBlock.className = "newLi";
+			messageBlock.innerHTML = `
+				<div class="message_date">
+				${this.date}
+				</div>
+				<div class="message__author">
+				${this.author}
+				</div>
+				<div class="message__text">
+				${this.text}
+				</div>
+				<div class="message__controls">
+				<button class="_skipMessage">Skip</button>
+				<button class="_answerMessage">Answer</button>
+				</div>
+				<ul class="_answer_list answers"></ul>
+			`;
+			
+			messageBlock.querySelector('._skipMessage').addEventListener('click', this.skipMessage );
+			messageBlock.querySelector('._answerMessage').addEventListener('click', this.showAnswerWindow );
+			target.appendChild( messageBlock );
+
+			if( this.node === null ){
+				this.node = messageBlock;
+			}
+
+	}
+
+}
+
+
+class Answer extends Message {
+	constructor( author, text, parent_id ){
+		super( author, text );
+		this.parent_id = parent_id;
+	}
+
+
+}
+
+const initHandlers = () => { 
+	const form = document.getElementById('message_form');
+	const author = document.getElementById('author');
+	const message = document.getElementById('message');
+	const message_list = document.getElementById('message_list');
+
+	form.addEventListener('submit', (e) => {
+	e.preventDefault();
+	const msg_value = message.value;
+	const author_value = author.value;
+
+	let newMessage = new Message( author_value, msg_value );
+	console.log( newMessage );
+
+	newMessage.render( message_list );
+	});
+
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+	initHandlers();
+});
+
+</script>
+
+
+
+
+</body>
+</html>
