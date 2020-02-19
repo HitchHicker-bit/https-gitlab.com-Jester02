@@ -60,13 +60,8 @@ function dataFetch (){
     const OnlyFrineds = (data) => {
         PersonObj["friends"] = data[random].friends;
     }
-    const FriendsOf = () => {
-      for (var i = 0; i < PersonObj.friends.length; i++){
-        return PersonObj.friends[i].name;
-      }
-    }
     const ShowResult = () => {
-      document.body.innerHTML = `<h2>Person ${PersonObj.name} his friends : ${FriendsOf()}</h2>`
+      document.body.innerHTML = `<h2>Person ${PersonObj.name} his friends : ${PersonObj.friends[0].name}, ${PersonObj.friends[1].name}, ${PersonObj.friends[2].name},</h2>`
     }
     fetch( url, options )
     .then( res => res.json())
