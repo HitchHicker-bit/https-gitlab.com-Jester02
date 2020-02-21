@@ -7,8 +7,10 @@
 */
 function getRandomIntInclusive(min, max) {
       min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+	  max = Math.floor(max);
+	  let res = Math.floor(Math.random() * (max - min + 1)) + min;
+	  console.log('res', res);
+      return res;
     }
 var rgb = getRandomIntInclusive(0,255).toString(16)+ getRandomIntInclusive(0,255).toString(16)+ getRandomIntInclusive(0,255).toString(16);
 var resultBlock = document.getElementById('MyBlock');
