@@ -98,7 +98,7 @@ var parseButton = document.createElement('button');
     function Parsing (e){
       e.preventDefault();
         var dataParse = document.getElementById('specialInput');
-        var JsonData = '{"'+dataParse.getAttribute('data-id')+'":'+'"'+dataParse.value+'"'+ '}';
+        var JsonData = '{"'+dataParse.getAttribute('data-id')+'":'+dataParse.value+ '}';
         var parsedData = JSON.parse(JsonData);
         console.log(parsedData)
     }
