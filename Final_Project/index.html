@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Play&display=swap" rel="stylesheet">
+</head>
+<body>
+	<a href="#imgload" id="ChangeLogo"><img class="dirLoad" href="#change" src="https://itea.ua/wp-content/themes/new-it/relize/img/logo-itea.svg"></a>
+	<header>
+		<div id="navigation-block">
+			<ul class="navigation" id="navigation">
+			<label class="changeLogo " id="changeLogo"><input class="inputForFile" type="file" name="image" id="ImageChanger">Изменить логотип</label>
+			<button class="customMenu" id="customMenu">Редактировать</button>
+			<li><a class="navigation-list" href="#rofl">Главная</a></li>
+			<li><a class="navigation-list" href="#rofl">Курсы</a></li>
+			<li><a class="navigation-list" href="#rofl">Новости</a></li>
+			<li><a class="navigation-list" href="#rofl">Партнёры</a></li>
+			<li><a class="navigation-list" href="#rofl">Контакты</a></li>
+		</ul>
+		</div>
+	</header>
+	<label class="courseList" id="TitleOfBlock">Курсы</label>
+	<div class="MainBlock" id="MainBlock">
+		<div class="Courses" id="CoursesBlock">
+		
+		<button class="custom" type="button" id="Customization">Редактировать</button>	
+		</div>
+		<div class="FreshNews" id="NewsBlock">
+			<button class="customNews" type="button" id="NewsChanger">Редактировать</button>	
+		<div class="NewsData">
+			<label class="newsList" id="dataLabel">Новости<span class="TimeNow" id="DateToday">20/02/2020</span></label>
+			<textarea class="areaNews" id="dataNews" disabled>Бронзовая медаль Хаджиева досталась представителю Казахстана Данияру Кайсанову, а лицензия, завоеванная им, досталась сборной Польши. Бронза Рахимова перешла китайцу Дэн Чживэю, лицензия — сборной Косова. Олимпийская лицензия, завоеванная Хутабой, перераспределена сборной Ирана.</textarea>
+		</div>
+		<div class="NewsData">
+			<label class="newsList" id="dataLabel">Новости<span class="TimeNow" id="DateToday">20/02/2020</span></label>
+			<textarea class="areaNews" id="dataNews" disabled>Бронзовая медаль Хаджиева досталась представителю Казахстана Данияру Кайсанову, а лицензия, завоеванная им, досталась сборной Польши. Бронза Рахимова перешла китайцу Дэн Чживэю, лицензия — сборной Косова. Олимпийская лицензия, завоеванная Хутабой, перераспределена сборной Ирана.</textarea>
+		</div>		
+	   </div>
+	   </div>
+	</div>
+	<div class="optionsForCustom" id="CustomBlock">
+		<div class="optionsBlock" id="CustomPar">
+			<label class="optionList" id="TitleOfBlock">Курсы</label>
+			<button class="CloseAndSave" id="Save">&#9746;</button>
+			<div class="optiontoCustom" id="custOptions">
+				
+			</div>
+			<button class="AddFunc" id="AddNewCourse">Добавить ещё один</button>
+		</div>
+	</div>
+	<div class="NewsCustom" id="NewsCustom">
+		<div class="NewsCustomedBlock" id="NewsValues">
+		<label class="optionList" id="TitleOfBlock">Новости</label>
+		<button class="CloseAndSaveNews" id="SaveNews">&#9746;</button>
+		<div class="NewsCustomBlock" id="NewsCustomBlock">
+			<div class="ValueOfNews">
+				<textarea type="text" class="ToCustomNews"></textarea>
+				<button class="DeleteFuncNews" id="RemoveBtn" data-del="delete">&#10006;</button>
+			</div>
+			<div class="ValueOfNews">
+				<textarea type="text" class="ToCustomNews"></textarea>
+				<button class="DeleteFuncNews" id="RemoveBtn" data-del="delete">&#10006;</button>
+			</div>
+			<button class="AddFunc" id="AddNewNews">Добавить новость</button>
+		</div>
+	</div>
+	</div>
+	<script type="text/javascript" src="TEST.js"></script>
+</body>
+</html>
+<!-- <label class="optionList" id="TitleOfBlock">Курсы</label>
+		<input class="titleCourse" type="text" name="name">
+		<input class="titleURL" type="url" name="url">
+		<input class="titleCourse" type="text" name="name">
+		<input class="titleURL" type="url" name="url">
+		<input class="titleCourse" type="text" name="name">
+		<input class="titleURL" type="url" name="url"> -->
+
+
+<!-- <div class="DataOfCourses"data-id="1">
+					<input class="titleCourse" type="text" name="name"data-id="1">
+					<input class="titleURL" type="url" name="url" data-id="1">
+					<button class="DeleteFunc" id="RemoveBtn">&#10006;</button>
+				</div>
+				<div class="DataOfCourses"data-id="2">
+					<input class="titleCourse" type="text" name="name"data-id="2">
+					<input class="titleURL" type="url" name="url" data-id="2">
+					<button class="DeleteFunc" id="RemoveBtn">&#10006;</button>
+				</div>
+				<div class="DataOfCourses"data-id="3">
+					<input class="titleCourse" type="text" name="name"data-id="3">
+					<input class="titleURL" type="url" name="url" data-id="3">
+					<button class="DeleteFunc" id="RemoveBtn">&#10006;</button>
+				</div>
+				<div class="DataOfCourses"data-id="4">
+					<input class="titleCourse" type="text" name="name"data-id="4">
+					<input class="titleURL" type="url" name="url" data-id="4">
+					<button class="DeleteFunc" id="RemoveBtn">&#10006;</button>
+				</div>
+				<div class="DataOfCourses"data-id="5">
+					<input class="titleCourse" type="text" name="name"data-id="5">
+					<input class="titleURL" type="url" name="url" data-id="5">
+					<button class="DeleteFunc" id="RemoveBtn">&#10006;</button>
+				</div>
+				<div class="DataOfCourses"data-id="6">
+					<input class="titleCourse" type="text" name="name"data-id="6">
+					<input class="titleURL" type="url" name="url" data-id="6">
+					<button class="DeleteFunc" id="RemoveBtn">&#10006;</button>
+				</div> -->
+
+
+
+<!-- <div class="iconsBlock" data-id="1">
+			<img class="icons" src=""data-id="1" >
+			<span class="nameOfCourse" data-id="1" id="nameOfCourse"></span>
+		</div>
+		<div class="iconsBlock"data-id="2">
+			<img class="icons" src=""data-id="2"  />
+			<span class="nameOfCourse"data-id="2"  id="nameOfCourse"></span>
+		</div>
+		<div class="iconsBlock"data-id="3">
+			<img class="icons" src=""data-id="3"  >
+			<span class="nameOfCourse"data-id="3"  id="nameOfCourse"></span>
+		</div>	
+		<div class="iconsBlock"data-id="4">
+			<img class="icons" src=""data-id="4"  >
+			<span class="nameOfCourse"data-id="4"  id="nameOfCourse"></span>
+		</div>
+		<div class="iconsBlock"data-id="5">
+			<img class="icons" src=""data-id="5"  >
+			<span class="nameOfCourse"data-id="5"  id="nameOfCourse"></span>
+		</div>
+		<div class="iconsBlock"data-id="6">
+			<img class="icons" src=""data-id="6"  >
+			<span class="nameOfCourse"data-id="6"  id="nameOfCourse"></span>
+		</div> -->
