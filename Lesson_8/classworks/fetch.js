@@ -44,37 +44,44 @@ function getRandomIntInclusive(min, max) {
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    var PersonObj ={
-
-    }
 function dataFetch (){
     let url = 'http://www.json-generator.com/api/json/get/cgwbLkTxnS?indent=2';
+    let url_2 = 'http://www.json-generator.com/api/json/get/bTBBXQabKG?indent=2';
     let options = {
         method:'POST'
     };
-    
-    const OnlyName = (data) => { 
-        const random = getRandomIntInclusive(0, data,length );
-        return data[random];
+      const users = await getObj.json();
+      const randomUser = users[getRandomIntInclusive(0, users.length)];
+      console.log(randomUser);
+      const getObjFriend = await fetch(url_2, options);
+      const userFriends = await getObjFriend.json();
+      console.log(userFriends);
+      let {name, age, gender} = randomUser;
+        name,
+        friends:userFriends[0].friends
+      };
+
+      return MyUser;
     }
-    const OnlyFrineds = (data) => {
-      console.log( '2', data );
-        PersonObj["friends"] = data[random].friends;
+    function ShowFriends (name,obj){
+      document.body.innerHTML += `<h2>${name} his friends is:</h2>`;
+        obj.map(item =>{
+          document.body.innerHTML += `<h2>${item.name}</h2>`
+        })
     }
-    const ShowResult = () => {
-      document.body.innerHTML = `<h2>Person ${PersonObj.name} his friends : ${PersonObj.friends[0].name}, ${PersonObj.friends[1].name}, ${PersonObj.friends[2].name},</h2>`
-    }
+    var ShowResult = UnitedObjItems();
     fetch( url, options )
     .then( res => res.json())
-    // .then( res => console.log("MyData", res))
-    .then( OnlyName )
+    .then( ReceiveObj )
     .then( res  => {
-      return fetch("http://www.json-generator.com/api/json/get/bTBBXQabKG?indent=2", options)
+      return fetch(url_2, options)
           .then(res_2 => res_2.json())
-          .then(OnlyFrineds);
+          .then(ObjFriends);
     })
-    .then(ShowResult);
-}
+    ShowResult.then(data => {
+        ShowFriends(data.name, data.friends);
+       });
+    }
 document.addEventListener('DOMContentLoaded', () => {
     dataFetch();
 });
