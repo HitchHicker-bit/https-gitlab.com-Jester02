@@ -14,7 +14,7 @@ var CoursesNumber = 0;
 var UrlNumber = 0;
 var CourseId = 0;
 var Counter = 0;
-var Counter_2 = 0;
+var Counter_2 = 1;
 CourseBlock.onmouseenter = function () {
 	BtnCustomCourse.classList.add('show');
 }
@@ -72,6 +72,7 @@ var opt = document.getElementById('custOptions');
 // 			})
 // 		})
 // 	})
+var max = 0;
 var ObjCourse = {
 		}
 class NewCourse {
@@ -88,7 +89,7 @@ class NewCourse {
 				item.textContent = null;
 				item.textContent += event.target.value;
 				ObjCourse["title"] = event.target.value;
-				localStorage.setItem('CourseID'+Counter_2, JSON.stringify(ObjCourse));
+				localStorage.setItem('CourseID'+max, JSON.stringify(ObjCourse));
 			}
 		})
 	}
@@ -100,7 +101,7 @@ class NewCourse {
 				item.removeAttribute('src');
 				item.setAttribute('src', event.target.value);
 				ObjCourse["URL"] = event.target.value;
-				localStorage.setItem('CourseID'+Counter_2, JSON.stringify(ObjCourse));
+				localStorage.setItem('CourseID'+max, JSON.stringify(ObjCourse));
 			}
 		})
 	}
@@ -121,11 +122,11 @@ class NewCourse {
 	render(){
 		let MyNewCourse = document.createElement('div');
 			MyNewCourse.className = "DataOfCourses";
-			MyNewCourse.dataset.id = Counter_2;
+			MyNewCourse.dataset.id = max;
 			MyNewCourse.innerHTML = 
 			`
-			<input class="titleCourse" type="text" name="name"data-id="${Counter_2}">
-			<input class="titleURL" type="url" name="url" data-id="${Counter_2}">
+			<input class="titleCourse" type="text" name="name"data-id="${max}">
+			<input class="titleURL" type="url" name="url" data-id="${max}">
 			<button class="DeleteFunc" id="RemoveBtn">&#10006;</button>
 			`;
 			opt.appendChild(MyNewCourse);
@@ -138,30 +139,29 @@ class NewCourseShow{
 	render(){
 		let MyNewCourseShow = document.createElement('div');
 			MyNewCourseShow.className = "iconsBlock";
-			MyNewCourseShow.dataset.id = Counter_2;
+			MyNewCourseShow.dataset.id = max;
 			MyNewCourseShow.innerHTML = 
 			`
-			<img class="icons" src=""data-id="${Counter_2}" />
-			<span class="nameOfCourse"data-id="${Counter_2}"  id="nameOfCourse"></span>
+			<img class="icons" src=""data-id="${max}" />
+			<span class="nameOfCourse"data-id="${max}"  id="nameOfCourse"></span>
 			`;
 			CourseBlock.appendChild(MyNewCourseShow);
 	}
 }
 	function AddCourse (event){
-		Counter_2++;
+		max++;
 		let Course = new NewCourse();
 		let CourseCustomed = new NewCourseShow();
-		ObjCourse["id"] = Counter_2;
+		ObjCourse["id"] = max;
 		Course.render();
 		CourseCustomed.render();
-		localStorage.setItem('CourseID'+Counter_2, JSON.stringify(ObjCourse));
+		localStorage.setItem('CourseID'+max, JSON.stringify(ObjCourse));
 	}
 	AddNewCourse.addEventListener('click', AddCourse);
 	var Arr = [];
 	var Arr2 = [];
 	function RenderSave (){
 		for(var i = 0; i<localStorage.length; i++){
-	
 			Counter_2++;
 			// var DataLocal = localStorage.getItem('CourseID'+Counter_2);
 			var DataLocal = localStorage.getItem(localStorage.key(i));
@@ -178,7 +178,7 @@ class NewCourseShow{
 					item.textContent = null;
 					item.textContent += event.target.value;
 					ObjCourse["title"] = event.target.value;
-					localStorage.setItem('CourseID'+Counter_2, JSON.stringify(ObjCourse));
+					localStorage.setItem('CourseID'+max, JSON.stringify(ObjCourse));
 				}
 			})
 		}
@@ -190,7 +190,7 @@ class NewCourseShow{
 				item.removeAttribute('src');
 				item.setAttribute('src', event.target.value);
 				ObjCourse["URL"] = event.target.value;
-				localStorage.setItem('CourseID'+Counter_2, JSON.stringify(ObjCourse));
+				localStorage.setItem('CourseID'+max, JSON.stringify(ObjCourse));
 			}
 		})
 	}
@@ -217,6 +217,9 @@ class NewCourseShow{
 		for (var i = 0; i<Arr.length; i++){
 			let dataCourseSorted = localStorage.getItem(Arr[i]);
 			let dataParsed = JSON.parse(dataCourseSorted);
+			if(dataParsed.id > max){
+				max = dataParsed.id;
+			}
 			let MyNewCourse = document.createElement('div');
 			MyNewCourse.className = "DataOfCourses";
 			MyNewCourse.dataset.id = dataParsed.id;
@@ -242,7 +245,6 @@ class NewCourseShow{
 			`;
 			CourseBlock.appendChild(MyNewCourseShow);
 		}
-		
 	}
 	RenderSave();
 	
