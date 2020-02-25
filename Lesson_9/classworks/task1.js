@@ -12,15 +12,29 @@ function getRandomIntInclusive(min, max) {
 	  console.log('res', res);
       return res;
     }
-var rgb = getRandomIntInclusive(0,255).toString(16)+ getRandomIntInclusive(0,255).toString(16)+ getRandomIntInclusive(0,255).toString(16);
+var rgb = [getRandomIntInclusive(0,255).toString(16), getRandomIntInclusive(0,255).toString(16), getRandomIntInclusive(0,255).toString(16)];
 var resultBlock = document.getElementById('MyBlock');
 var button = document.createElement('button');
 	button.id = "GenColor";
 	button.innerText = "Generate";
 	resultBlock.appendChild(button);
 	function LocalStorBackground (event){
-		var rgb = getRandomIntInclusive(0,255).toString(16)+ getRandomIntInclusive(0,255).toString(16)+ getRandomIntInclusive(0,255).toString(16);
-			localStorage.setItem('back', rgb);
+
+		var rgb = [getRandomIntInclusive(0,255).toString(16), getRandomIntInclusive(0,255).toString(16), getRandomIntInclusive(0,255).toString(16)];
+		var RGB = "";
+			function RgB (){
+				for (var i = 0; i<rgb.length; i++){
+					if (rgb[i].length == 1){
+						rgb[i] = "0"+ rgb[i];
+					}
+				}
+				for (var j = 0; j<rgb.length; j++){
+					RGB += rgb[j];
+				}
+			}
+			RgB();
+			console.log(RGB);
+			localStorage.setItem('back', RGB);
 	var	rgbDate	= localStorage.getItem('back');
 			function Background (rgb){
 				document.body.style.background = "#"+rgbDate;

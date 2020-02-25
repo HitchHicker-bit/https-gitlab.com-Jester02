@@ -64,6 +64,7 @@
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+<<<<<<< HEAD
     // function MyPlanet (name){
     //     this.name = name;
     //     this.population = 0;
@@ -146,6 +147,32 @@
         if ( (randomNumber % 2) == 0) {
           if( this.population > 0 ){
             growPopulation();
+=======
+      function MyPlanet (name){
+        this.name = name;
+        
+        const populationMultiplyRate = getRandomIntInclusive(1,10);
+        const randomPopulation = () => getRandomIntInclusive(1000,10000);
+          const growPopulation = () => {
+          const increasedPopulation =getRandomIntInclusive(1,30) + populationMultiplyRate * 100;
+          this.population += increasedPopulation;
+          console.log("За один цикл популяция людей возросла на "+ increasedPopulation + ".Теперь нас "+ this.population);
+        }
+        
+        const Cataclysm = () => {
+          const increasedPopulation = getRandomIntInclusive(1,30) + populationMultiplyRate * 100;
+          let extinctiedPopulation = increasedPopulation;
+          this.population -= extinctiedPopulation;
+          console.log("От катаклизма погибло " + extinctiedPopulation  + " человек на планете." + "И осталось " + this.population);
+        }
+        this.population = randomPopulation();
+        this.rotatePlanet = function () {
+          let randomNumber = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+          if ( (randomNumber % 2) == 0) {
+          growPopulation();
+            } else {
+          Cataclysm();
+>>>>>>> d2ee0f7f526783536c67abfd1a68ef8efd02d5df
           }
         } else {
           cataclysm();
