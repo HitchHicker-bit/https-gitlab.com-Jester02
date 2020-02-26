@@ -72,9 +72,12 @@ var opt = document.getElementById('custOptions');
 // 			})
 // 		})
 // 	})
-var max = 0;
-var ObjCourse = {
+		var CourseObject = [];
+		var myObj = {
 		}
+    var DataFromLocal = localStorage.getItem('CourseObject');
+    var ParsedData = JSON.parse(DataFromLocal);
+    
 class NewCourse {
 	constructor(){
 		this.deleteCourse = this.deleteCourse.bind(this);
@@ -88,8 +91,8 @@ class NewCourse {
 			if (Number(event.target.dataset.id) == DataTitleId){
 				item.textContent = null;
 				item.textContent += event.target.value;
-				ObjCourse["title"] = event.target.value;
-				localStorage.setItem('CourseID'+max, JSON.stringify(ObjCourse));
+				myObj["title"] = event.target.value;
+				localStorage.setItem('CourseID'+Counter, JSON.stringify(myObj));
 			}
 		})
 	}
@@ -100,13 +103,18 @@ class NewCourse {
 			if (Number(event.target.dataset.id) == DataIdUrl){
 				item.removeAttribute('src');
 				item.setAttribute('src', event.target.value);
-				ObjCourse["URL"] = event.target.value;
-				localStorage.setItem('CourseID'+max, JSON.stringify(ObjCourse));
+				myObj["URL"] = event.target.value;
+				localStorage.setItem('CourseID'+Counter, JSON.stringify(myObj));
+				var CrsObj = localStorage.getItem('CourseID'+Counter);
+				let Data = JSON.parse(CrsObj);
+				ParsedData.push(Data);
+				localStorage.removeItem('CourseID'+Counter);
+  				localStorage.setItem('CourseObject', JSON.stringify(ParsedData));
 			}
 		})
 	}
 	deleteCourse(event){
-		Counter_2--;
+		Counter--;
 		let idblock = Number(event.target.parentNode.dataset.id);
 		event.target.parentNode.remove();
 		let iconsId = CourseBlock.querySelectorAll('.iconsBlock');
@@ -114,62 +122,49 @@ class NewCourse {
 				var idOfIconBlock = Number(block.dataset.id);
 				if (idblock == idOfIconBlock){
 					block.remove();
-					localStorage.removeItem('CourseID'+block.dataset.id);
-					Arr.splice(idOfIconBlock- 1,1);
+					ParsedData.splice(idOfIconBlock - 1, 1);
 				}
 			})
 	}
 	render(){
 		let MyNewCourse = document.createElement('div');
 			MyNewCourse.className = "DataOfCourses";
-			MyNewCourse.dataset.id = max;
+			MyNewCourse.dataset.id = Counter;
 			MyNewCourse.innerHTML = 
 			`
-			<input class="titleCourse" type="text" name="name"data-id="${max}">
-			<input class="titleURL" type="url" name="url" data-id="${max}">
+			<input class="titleCourse" type="text" name="name"data-id="${Counter}">
+			<input class="titleURL" type="url" name="url" data-id="${Counter}">
 			<button class="DeleteFunc" id="RemoveBtn">&#10006;</button>
 			`;
 			opt.appendChild(MyNewCourse);
 		MyNewCourse.querySelector('.titleCourse').addEventListener('input', this.addTitle);
-		MyNewCourse.querySelector('.titleURL').addEventListener('input', this.addURL);
+		MyNewCourse.querySelector('.titleURL').addEventListener('change', this.addURL);
 		MyNewCourse.querySelector('.DeleteFunc').addEventListener('click', this.deleteCourse);
-	}
-}
-class NewCourseShow{
-	render(){
+		
 		let MyNewCourseShow = document.createElement('div');
 			MyNewCourseShow.className = "iconsBlock";
-			MyNewCourseShow.dataset.id = max;
+			MyNewCourseShow.dataset.id = Counter;
 			MyNewCourseShow.innerHTML = 
 			`
-			<img class="icons" src=""data-id="${max}" />
-			<span class="nameOfCourse"data-id="${max}"  id="nameOfCourse"></span>
+			<img class="icons" src=""data-id="${Counter}" />
+			<span class="nameOfCourse"data-id="${Counter}"  id="nameOfCourse"></span>
 			`;
 			CourseBlock.appendChild(MyNewCourseShow);
+
 	}
 }
 	function AddCourse (event){
-		max++;
+		Counter++;
 		let Course = new NewCourse();
-		let CourseCustomed = new NewCourseShow();
-		ObjCourse["id"] = max;
 		Course.render();
-		CourseCustomed.render();
-		localStorage.setItem('CourseID'+max, JSON.stringify(ObjCourse));
+		var DataFromLocal = localStorage.getItem('CourseObject');
+    	var ParsedData = JSON.parse(DataFromLocal);
+    	localStorage.setItem('CourseID'+Counter, JSON.stringify(myObj));
 	}
 	AddNewCourse.addEventListener('click', AddCourse);
-	var Arr = [];
-	var Arr2 = [];
 	function RenderSave (){
-		for(var i = 0; i<localStorage.length; i++){
-			Counter_2++;
-			// var DataLocal = localStorage.getItem('CourseID'+Counter_2);
-			var DataLocal = localStorage.getItem(localStorage.key(i));
-			var ParsedData = JSON.parse(DataLocal);
-			Arr2.push(localStorage.key(i));
-			console.log(Arr2);
-			// console.log(localStorage.setItem('CourseID'+Counter_2, JSON.stringify(ParsedData)));
-
+		let DataFromLocal = localStorage.getItem('CourseObject');
+		let ParsedData = JSON.parse(DataFromLocal);
 		function addTitle(event){
 			let newTitle = CourseBlock.querySelectorAll('.nameOfCourse')
 			newTitle.forEach(function(item){
@@ -177,8 +172,12 @@ class NewCourseShow{
 				if (Number(event.target.dataset.id) == DataTitleId){
 					item.textContent = null;
 					item.textContent += event.target.value;
-					ObjCourse["title"] = event.target.value;
-					localStorage.setItem('CourseID'+max, JSON.stringify(ObjCourse));
+					for (var i = 0; i<ParsedData.length; i++){
+						if (DataTitleId -1 == i){
+							ParsedData[i].title = event.target.value;
+							localStorage.setItem('CourseObject', JSON.stringify(ParsedData));
+						}
+					}
 				}
 			})
 		}
@@ -189,8 +188,12 @@ class NewCourseShow{
 			if (Number(event.target.dataset.id) == DataIdUrl){
 				item.removeAttribute('src');
 				item.setAttribute('src', event.target.value);
-				ObjCourse["URL"] = event.target.value;
-				localStorage.setItem('CourseID'+max, JSON.stringify(ObjCourse));
+				for (var i = 0; i<ParsedData.length; i++){
+						if (DataIdUrl -1 == i){
+							ParsedData[i].URL = event.target.value;
+							localStorage.setItem('CourseObject', JSON.stringify(ParsedData));
+						}
+					}
 			}
 		})
 	}
@@ -203,48 +206,39 @@ class NewCourseShow{
 				var idOfIconBlock = Number(block.dataset.id);
 				if (idblock == idOfIconBlock){
 					block.remove();
-					localStorage.removeItem('CourseID'+block.dataset.id);
-					Arr.splice(idOfIconBlock - 1,1);
+					ParsedData.splice(idOfIconBlock -1, 1);
+					localStorage.setItem('CourseObject', JSON.stringify(ParsedData));
 				}
 			})
 			}
-			
-		}
-		let sorted = Arr2.sort();
-		for (var h = 0; h<sorted.length; h++){
-			Arr.push(sorted[h]);
-		}
-		for (var i = 0; i<Arr.length; i++){
-			let dataCourseSorted = localStorage.getItem(Arr[i]);
-			let dataParsed = JSON.parse(dataCourseSorted);
-			if(dataParsed.id > max){
-				max = dataParsed.id;
-			}
-			let MyNewCourse = document.createElement('div');
-			MyNewCourse.className = "DataOfCourses";
-			MyNewCourse.dataset.id = dataParsed.id;
-			MyNewCourse.innerHTML = 
-			`
-			<input class="titleCourse" type="text" name="name"data-id="${i}">
-			<input class="titleURL" type="url" name="url" data-id="${i}">
-			<button class="DeleteFunc" id="RemoveBtn">&#10006;</button>
-			`;
-			opt.appendChild(MyNewCourse);
-			MyNewCourse.querySelector('.titleCourse').addEventListener('input', addTitle);
-			MyNewCourse.querySelector('.titleURL').addEventListener('input', addURL);
-			MyNewCourse.querySelector('.DeleteFunc').addEventListener('click', deleteCourse);
-			MyNewCourse.querySelector('.titleCourse').value = dataParsed.title;
-			MyNewCourse.querySelector('.titleURL').value = dataParsed.URL;
-			let MyNewCourseShow = document.createElement('div');
-			MyNewCourseShow.className = "iconsBlock";
-			MyNewCourseShow.dataset.id = dataParsed.id;
-			MyNewCourseShow.innerHTML = 
-			`
-			<img class="icons" src="${dataParsed.URL}"data-id="${dataParsed.id}" />
-			<span class="nameOfCourse"data-id="${dataParsed.id}"  id="nameOfCourse">${dataParsed.title}</span>
-			`;
-			CourseBlock.appendChild(MyNewCourseShow);
-		}
+			for (var i = 0; i<ParsedData.length; i++){
+				console.log(ParsedData[i]);
+				Counter++;
+				let MyNewCourse = document.createElement('div');
+					MyNewCourse.className = "DataOfCourses";
+					MyNewCourse.dataset.id = Counter;
+					MyNewCourse.innerHTML = 
+						`
+						<input class="titleCourse" type="text" name="name"data-id="${Counter}">
+						<input class="titleURL" type="url" name="url" data-id="${Counter}">
+						<button class="DeleteFunc" id="RemoveBtn">&#10006;</button>
+						`;
+					opt.appendChild(MyNewCourse);
+					MyNewCourse.querySelector('.titleCourse').addEventListener('input', addTitle);
+					MyNewCourse.querySelector('.titleURL').addEventListener('input', addURL);
+					MyNewCourse.querySelector('.DeleteFunc').addEventListener('click', deleteCourse);
+					MyNewCourse.querySelector('.titleCourse').value =ParsedData[i].title ;
+					MyNewCourse.querySelector('.titleURL').value = ParsedData[i].URL;
+				let MyNewCourseShow = document.createElement('div');
+					MyNewCourseShow.className = "iconsBlock";
+					MyNewCourseShow.dataset.id = Counter;
+					MyNewCourseShow.innerHTML = 
+					`
+					<img class="icons" src="${ParsedData[i].URL}"data-id="${Counter}" />
+					<span class="nameOfCourse"data-id="${Counter}"  id="nameOfCourse">${ParsedData[i].title}</span>
+					`;
+					CourseBlock.appendChild(MyNewCourseShow);
+			}	
 	}
 	RenderSave();
 	
