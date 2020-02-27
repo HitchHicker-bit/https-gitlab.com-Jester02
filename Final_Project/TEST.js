@@ -1,20 +1,25 @@
 var CourseBlock = document.getElementById('CoursesBlock');
 var NewsBlock = document.getElementById('NewsBlock');
 var MenuBlock = document.getElementById('navigation-block');
+var MenuList = document.getElementById('navigation');
 var CoursesBlockCust = document.getElementById('CustomBlock')
 const BtnCustomCourse = document.getElementById('Customization');
 const BtnCustomNews = document.getElementById('NewsChanger');
 const ChangeLogo = document.getElementById('changeLogo');
-const CustomMenu = document.getElementById('customMenu');
+const Custom = document.getElementById('customMenu');
 const CloseBtn = document.getElementById('Save');
 const NewsCustom = document.getElementById('NewsCustom');
 const CloseNews = document.getElementById('SaveNews');
 const AddNewCourse = document.getElementById('AddNewCourse');
-var CoursesNumber = 0;
-var UrlNumber = 0;
-var CourseId = 0;
+var ValueOfNews = document.getElementById("ValueOfNews");
+var NewsCustomValues = document.getElementById('NewsCustomBlock');
+var MenuSave = document.getElementById('SaveMenu');
+var MenuCustom = document.getElementById('MainCustomMenu');
+var MenuCustomBlock = document.getElementById('CustomMenuBlock');
+var AddList = document.getElementById('AddNewMenu');
 var Counter = 0;
-var Counter_2 = 1;
+var Counter_2 = 0;
+var Counter_3 = 0;
 CourseBlock.onmouseenter = function () {
 	BtnCustomCourse.classList.add('show');
 }
@@ -29,11 +34,11 @@ NewsBlock.onmouseleave = function (){
 }
 MenuBlock.onmouseenter = function (){
 	ChangeLogo.classList.add('show');
-	CustomMenu.classList.add('show');
+	Custom.classList.add('show');
 }
 MenuBlock.onmouseleave = function (){
 	ChangeLogo.classList.remove('show');
-	CustomMenu.classList.remove('show');
+	Custom.classList.remove('show');
 }
 function ShowingCoursesCust (event){
     	CoursesBlockCust.classList.add('show');
@@ -51,9 +56,14 @@ function CloseNewsCustom (event) {
 	NewsCustom.classList.remove('show');
 }
 CloseNews.addEventListener('click', CloseNewsCustom);
-
-var remove = document.getElementById('AddNewNews');
-var removeBtn = remove.querySelectorAll('DeleteFuncNews');
+function CloseMenuCustom (event) {
+	MenuCustom.classList.remove('show');
+}
+function OpenMenuCustom (event){
+	MenuCustom.classList.add('show');
+}
+Custom.addEventListener('click', OpenMenuCustom);
+MenuSave.addEventListener('click', CloseMenuCustom);
 var opt = document.getElementById('custOptions');
 // var optDelete = opt.querySelectorAll('.DeleteFunc');
 // 	optDelete.forEach(function(item){
@@ -73,12 +83,26 @@ var opt = document.getElementById('custOptions');
 // 		})
 // 	})
 		var CourseObject = [];
-		var myObj = {
-		}
+		var NewsObject = [];
+		var MenuObj = [];
+		var myObj2 = {};
+		var myObj = {};
+		var myObj3 = {};
+		var MenuFromLocal = localStorage.getItem('MenuObj');
+		var ParsedMenu = JSON.parse(MenuFromLocal);
+
     var DataFromLocal = localStorage.getItem('CourseObject');
+    var NewsFromLocal = localStorage.getItem('NewsObject');
+    if (DataFromLocal == null){
+    	localStorage.setItem('CourseObject', JSON.stringify(CourseObject));
+    }
+    if (NewsFromLocal == null){
+    	localStorage.setItem('NewsObject', JSON.stringify(NewsObject));
+    }
     var ParsedData = JSON.parse(DataFromLocal);
+    var ParsedNews = JSON.parse(NewsFromLocal); 
     
-class NewCourse {
+class MyCourse {
 	constructor(){
 		this.deleteCourse = this.deleteCourse.bind(this);
 		this.addTitle = this.addTitle.bind(this);
@@ -87,7 +111,7 @@ class NewCourse {
 	addTitle(event){
 		let newTitle = CourseBlock.querySelectorAll('.nameOfCourse')
 		newTitle.forEach(function(item){
-			var DataTitleId = Number(item.dataset.id);
+			let DataTitleId = Number(item.dataset.id);
 			if (Number(event.target.dataset.id) == DataTitleId){
 				item.textContent = null;
 				item.textContent += event.target.value;
@@ -99,13 +123,13 @@ class NewCourse {
 	addURL(event){
 		let newURL = CourseBlock.querySelectorAll('.icons');
 		newURL.forEach(function(item){
-			var DataIdUrl = Number(item.dataset.id);
+			let DataIdUrl = Number(item.dataset.id);
 			if (Number(event.target.dataset.id) == DataIdUrl){
 				item.removeAttribute('src');
 				item.setAttribute('src', event.target.value);
 				myObj["URL"] = event.target.value;
 				localStorage.setItem('CourseID'+Counter, JSON.stringify(myObj));
-				var CrsObj = localStorage.getItem('CourseID'+Counter);
+				let CrsObj = localStorage.getItem('CourseID'+Counter);
 				let Data = JSON.parse(CrsObj);
 				ParsedData.push(Data);
 				localStorage.removeItem('CourseID'+Counter);
@@ -119,7 +143,7 @@ class NewCourse {
 		event.target.parentNode.remove();
 		let iconsId = CourseBlock.querySelectorAll('.iconsBlock');
 			iconsId.forEach(function(block){
-				var idOfIconBlock = Number(block.dataset.id);
+				let idOfIconBlock = Number(block.dataset.id);
 				if (idblock == idOfIconBlock){
 					block.remove();
 					ParsedData.splice(idOfIconBlock - 1, 1);
@@ -155,7 +179,7 @@ class NewCourse {
 }
 	function AddCourse (event){
 		Counter++;
-		let Course = new NewCourse();
+		let Course = new MyCourse();
 		Course.render();
 		var DataFromLocal = localStorage.getItem('CourseObject');
     	var ParsedData = JSON.parse(DataFromLocal);
@@ -241,5 +265,272 @@ class NewCourse {
 			}	
 	}
 	RenderSave();
+
+class News {
+	constructor(){
+		this.AddNews = this.AddNews.bind(this);
+		this.DeleteNews = this.DeleteNews.bind(this);
+		this.date = new Date();
+	}
+	DeleteNews(event){
+		Counter_2--;
+		let idblock = Number(event.target.parentNode.dataset.id);
+		event.target.parentNode.remove();
+		let News = NewsBlock.querySelectorAll('.NewsData');
+			News.forEach(function(item){
+				let idOfNews = Number(item.dataset.id);
+				if (idblock == idOfNews){
+					item.remove();
+					ParsedNews.splice(idOfNews - 1, 1);
+				}
+			})
+		}
+	AddNews(event){
+		let News = NewsBlock.querySelectorAll('.areaNews');
+			News.forEach(function(text){
+				let idOfNews = Number(text.dataset.id);
+				if (Number(event.target.dataset.id) == idOfNews){
+					text.value = event.target.value;
+					myObj2["Text"] = event.target.value;
+					localStorage.setItem('NewsID'+Counter_2, JSON.stringify(myObj2));
+					let CrsObj = localStorage.getItem('NewsID'+Counter_2);
+					let Data = JSON.parse(CrsObj);
+					ParsedNews.push(Data);
+					localStorage.removeItem('NewsID'+Counter_2);
+  					localStorage.setItem('NewsObject', JSON.stringify(ParsedNews));
+				}
+			})
+	}
+	render(){
+		let news = document.createElement('div');
+			news.className = "NewsData";
+			news.dataset.id = Counter_2;
+			news.innerHTML = 
+			`
+			<label class="newsList" id="dataLabel">${"Новость"+Counter_2}<span class="TimeNow" id="DateToday">${this.date.getFullYear() + '/' + this.date.getMonth() + '/'+ this.date.getDate()}</span></label>
+			<textarea class="areaNews" id="dataNews" data-id="${Counter_2}" disabled></textarea>
+			`;
+			NewsBlock.appendChild(news);
+		let newsCust = document.createElement('div');
+			newsCust.className = "ValueOfNews";
+			newsCust.dataset.id = Counter_2;
+			newsCust.innerHTML = 
+			`
+			<textarea type="text" class="ToCustomNews" data-id="${Counter_2}"></textarea>
+			<button class="DeleteFuncNews" id="RemoveBtn" data-id="${Counter_2}">&#10006;</button>
+			`;
+			NewsCustomValues.appendChild(newsCust);
+			newsCust.querySelector('.DeleteFuncNews').addEventListener('click', this.DeleteNews);
+			newsCust.querySelector('.ToCustomNews').addEventListener('change',this.AddNews);
+			newsCust.querySelectorAll('ToCustomNews').forEach(function(input){
+				let idOfCustInput = Number(input.dataset.id);
+				news.querySelectorAll('.areaNews').forEach(function(input2){
+					let idOfShowInput = Number(input2.dataset.id);
+					if (idOfCustInput == idOfShowInput){
+						input.value = input2.value;
+					}
+				}) 
+			})
+	}
+}	
 	
+	function NewsAdd(event){
+		Counter_2++;
+		let MyNews = new News();
+		MyNews.render();
+    	localStorage.setItem('NewsID'+Counter_2, JSON.stringify(myObj2));
+	} 
+	var addNews = document.getElementById('AddNewNews');
+		addNews.addEventListener('click',NewsAdd);
 	
+	function RenderNews (){
+		let date = new Date();
+	function DeleteNews(event){
+		Counter_2--;
+		let idblock = Number(event.target.parentNode.dataset.id);
+		event.target.parentNode.remove();
+		let News = NewsBlock.querySelectorAll('.NewsData');
+			News.forEach(function(item){
+				let idOfNews = Number(item.dataset.id);
+				if (idblock == idOfNews){
+					item.remove();
+					ParsedNews.splice(idOfNews - 1, 1);
+				}
+			})
+		}
+	function AddNews(event){
+		let News = NewsBlock.querySelectorAll('.areaNews');
+			News.forEach(function(text){
+				let idOfNews = Number(text.dataset.id);
+				if (Number(event.target.dataset.id) == idOfNews){
+					text.value = event.target.value;
+					for (var i = 0; i<ParsedNews.length; i++){
+						if (idOfNews -1 == i){
+							ParsedNews[i].Text = event.target.value;
+							localStorage.setItem('NewsObject', JSON.stringify(ParsedNews));
+						}
+					}
+				}
+			})
+		}
+		for (var i = 0; i<ParsedNews.length; i++){
+			Counter_2++;
+		let news = document.createElement('div');
+			news.className = "NewsData";
+			news.innerHTML = 
+			`
+			<label class="newsList" id="dataLabel">${"Новость"+Counter_2}<span class="TimeNow" id="DateToday">${date.getFullYear() + '/' + date.getMonth() + '/'+ date.getDate()}</span></label>
+			<textarea class="areaNews" id="dataNews" data-id="${Counter_2}" disabled>${ParsedNews[i].Text}</textarea>
+			`;
+			NewsBlock.appendChild(news);
+		let newsCust = document.createElement('div');
+			newsCust.className = "ValueOfNews";
+			newsCust.innerHTML = 
+			`
+			<textarea type="text" class="ToCustomNews" data-id="${Counter_2}">${ParsedNews[i].Text}</textarea>
+			<button class="DeleteFuncNews" id="RemoveBtn" data-id="${Counter_2}">&#10006;</button>
+			`;
+			NewsCustomValues.appendChild(newsCust);
+			newsCust.querySelector('.DeleteFuncNews').addEventListener('click', DeleteNews);
+			newsCust.querySelector('.ToCustomNews').addEventListener('change',AddNews);
+			newsCust.querySelectorAll('ToCustomNews').forEach(function(input){
+				let idOfCustInput = Number(input.dataset.id);
+				news.querySelectorAll('.areaNews').forEach(function(input2){
+					let idOfShowInput = Number(input2.dataset.id);
+					if (idOfCustInput == idOfShowInput){
+						input.value = input2.value;
+					}
+				}) 
+			})
+		}
+	}
+	RenderNews();
+
+
+class Menu {
+	constructor(){
+		this.addMenuList = this.addMenuList.bind(this);
+		this.removeMenuList = this.removeMenuList.bind(this);
+	}
+	addMenuList(event){
+		let MenuItems = MenuList.querySelectorAll('.navigation-list');
+		console.log(event.target.dataset.id);
+			MenuItems.forEach(function(item){
+					console.log(item.dataset.id);
+			let idOfList = Number(item.dataset.id);
+			if (Number(event.target.dataset.id) == idOfList){
+					item.innerText = event.target.value;
+					myObj3["list"] = event.target.value;
+					localStorage.setItem('ListID'+Counter_3, JSON.stringify(myObj3));
+					let CrsObj = localStorage.getItem('ListID'+Counter_3);
+					let Data = JSON.parse(CrsObj);
+					ParsedMenu.push(Data);
+					localStorage.removeItem('ListID'+Counter_3);
+  					localStorage.setItem('MenuObj', JSON.stringify(ParsedMenu));
+  					
+					}
+				})
+			}
+	removeMenuList(event){
+		Counter_3--;
+		let idblock = Number(event.target.parentNode.dataset.id);
+		event.target.parentNode.remove();
+		let MenuItems = MenuList.querySelectorAll('.navigation-list');
+			MenuItems.forEach(function(item){
+				let idOfList = Number(item.dataset.id);
+				if (idblock == idOfList){
+					item.remove();
+					ParsedMenu.splice(idOfList - 1, 1);
+					localStorage.setItem('MenuObj', JSON.stringify(ParsedMenu));
+				}
+			})
+		}
+	render(){
+		let list = document.createElement('li');
+			list.className = 'navigation-list';
+			list.innerHTML = 
+			`
+			<a href="#rofl" data-id="${Counter_3}"></a>
+			`;
+			MenuList.appendChild(list);
+		let listCust = document.createElement('div');
+			listCust.className = 'ValuesOfMenu';
+			listCust.dataset.id = Counter_3;
+			listCust.innerHTML = 
+			`
+			<input class="ValuesOfMenuLink" data-id="${Counter_3}">
+			<button class="DeleteFuncMenu" id="RemoveBtn">&#10006;</button>
+			`;
+			MenuCustomBlock.appendChild(listCust);
+			MenuCustomBlock.querySelector('.DeleteFuncMenu').addEventListener('click', this.removeMenuList);
+			MenuCustomBlock.querySelector('.ValuesOfMenuLink').addEventListener('change', this.addMenuList);
+
+	}
+}
+	function MenuAdding (event) {
+		Counter_3++;
+		let MyList = new Menu();
+		MyList.render();
+		localStorage.setItem('ListID'+Counter_3, JSON.stringify(myObj3));
+	}
+	AddList.addEventListener('click', MenuAdding);
+
+	function MenuRendering (){
+	function addMenuList(event){
+		let MenuItems = MenuList.querySelectorAll('.navigation-list');
+			MenuItems.forEach(function(item){
+			let idOfList = Number(item.dataset.id);
+			if (Number(event.target.dataset.id) == idOfList){
+				item.innerText = event.target.value;
+					for (var i = 0; i<ParsedMenu.length; i++){
+						if (idOfList - 1 == i){
+							ParsedMenu[i].list = event.target.value;
+							localStorage.setItem('MenuObj', JSON.stringify(ParsedMenu));
+						}
+					}
+					}
+				})
+		}
+	function removeMenuList(event){
+		Counter_3--;
+		let idblock = Number(event.target.parentNode.dataset.id);
+		event.target.parentNode.remove();
+		let MenuItems = MenuList.querySelectorAll('.navigation-list');
+			MenuItems.forEach(function(item){
+				let idOfList = Number(item.dataset.id);
+				if (idblock == idOfList){
+					item.remove();
+					ParsedMenu.splice(idOfList - 1, 1);
+					localStorage.setItem('MenuObj', JSON.stringify(ParsedMenu));
+				}
+			})
+		}
+		for (var i = 0; i<ParsedMenu.length; i++){
+			Counter_3++;
+			let list = document.createElement('li');
+			list.innerHTML = 
+			`
+			<a class="navigation-list" href="#rofl" data-id="${Counter_3}">${ParsedMenu[i].list}</a>
+			`;
+			MenuList.appendChild(list);
+		let listCust = document.createElement('div');
+			listCust.className = 'ValuesOfMenu';
+			listCust.dataset.id = Counter_3;
+			listCust.innerHTML = 
+			`
+			<input class="ValuesOfMenuLink" data-id="${Counter_3}">
+			<button class="DeleteFuncMenu" id="RemoveBtn">&#10006;</button>
+			`;
+			MenuCustomBlock.appendChild(listCust);
+			MenuCustomBlock.querySelector('.DeleteFuncMenu').addEventListener('click', removeMenuList);
+			MenuCustomBlock.querySelector('.ValuesOfMenuLink').addEventListener('change', addMenuList);
+				MenuCustomBlock.querySelectorAll('.ValuesOfMenuLink').forEach(function(item){
+					MenuList.querySelectorAll('.navigation-list').forEach(function(item2){
+						if (Number(item.dataset.id) == Number(item2.dataset.id)){
+							item.value = item2.innerText;
+						}
+					})
+				})
+		}
+	}
+	MenuRendering();
