@@ -413,7 +413,7 @@ class Menu {
 		this.removeMenuList = this.removeMenuList.bind(this);
 	}
 	addMenuList(event){
-		let MenuItems = MenuList.querySelectorAll('.navigation-list');
+		let MenuItems = MenuBlock.querySelectorAll('.navigation-li');
 		console.log(event.target.dataset.id);
 			MenuItems.forEach(function(item){
 					console.log(item.dataset.id);
@@ -427,7 +427,6 @@ class Menu {
 					ParsedMenu.push(Data);
 					localStorage.removeItem('ListID'+Counter_3);
   					localStorage.setItem('MenuObj', JSON.stringify(ParsedMenu));
-  					
 					}
 				})
 			}
@@ -435,7 +434,7 @@ class Menu {
 		Counter_3--;
 		let idblock = Number(event.target.parentNode.dataset.id);
 		event.target.parentNode.remove();
-		let MenuItems = MenuList.querySelectorAll('.navigation-list');
+		let MenuItems = MenuBlock.querySelectorAll('.navigation-list');
 			MenuItems.forEach(function(item){
 				let idOfList = Number(item.dataset.id);
 				if (idblock == idOfList){
@@ -446,13 +445,14 @@ class Menu {
 			})
 		}
 	render(){
-		let list = document.createElement('li');
-			list.className = 'navigation-list';
-			list.innerHTML = 
+		let div = document.createElement('div');
+			div.className = 'navigation-list';
+			div.dataset.id = Counter_3;
+			div.innerHTML = 
 			`
-			<a href="#rofl" data-id="${Counter_3}"></a>
+			<a class="navigation-li" href="#rofl" data-id="${Counter_3}"></a>
 			`;
-			MenuList.appendChild(list);
+			MenuBlock.appendChild(div);
 		let listCust = document.createElement('div');
 			listCust.className = 'ValuesOfMenu';
 			listCust.dataset.id = Counter_3;
@@ -471,6 +471,9 @@ class Menu {
 		Counter_3++;
 		let MyList = new Menu();
 		MyList.render();
+		if (myObj3.list != undefined){
+			delete myObj3.list;
+		}
 		localStorage.setItem('ListID'+Counter_3, JSON.stringify(myObj3));
 	}
 	AddList.addEventListener('click', MenuAdding);
@@ -495,7 +498,7 @@ class Menu {
 		Counter_3--;
 		let idblock = Number(event.target.parentNode.dataset.id);
 		event.target.parentNode.remove();
-		let MenuItems = MenuList.querySelectorAll('.navigation-list');
+		let MenuItems = MenuBlock.querySelectorAll('.navigation-li');
 			MenuItems.forEach(function(item){
 				let idOfList = Number(item.dataset.id);
 				if (idblock == idOfList){
@@ -507,12 +510,14 @@ class Menu {
 		}
 		for (var i = 0; i<ParsedMenu.length; i++){
 			Counter_3++;
-			let list = document.createElement('li');
+			let list = document.createElement('div');
+			list.className = "navigation-list";
+			list.dataset.id = Counter_3;
 			list.innerHTML = 
 			`
-			<a class="navigation-list" href="#rofl" data-id="${Counter_3}">${ParsedMenu[i].list}</a>
+			<a class="navigation-li" href="#rofl" data-id="${Counter_3}">${ParsedMenu[i].list}</a>
 			`;
-			MenuList.appendChild(list);
+			MenuBlock.appendChild(list);
 		let listCust = document.createElement('div');
 			listCust.className = 'ValuesOfMenu';
 			listCust.dataset.id = Counter_3;
@@ -525,7 +530,7 @@ class Menu {
 			MenuCustomBlock.querySelector('.DeleteFuncMenu').addEventListener('click', removeMenuList);
 			MenuCustomBlock.querySelector('.ValuesOfMenuLink').addEventListener('change', addMenuList);
 				MenuCustomBlock.querySelectorAll('.ValuesOfMenuLink').forEach(function(item){
-					MenuList.querySelectorAll('.navigation-list').forEach(function(item2){
+					MenuBlock.querySelectorAll('.navigation-list').forEach(function(item2){
 						if (Number(item.dataset.id) == Number(item2.dataset.id)){
 							item.value = item2.innerText;
 						}
@@ -534,3 +539,4 @@ class Menu {
 		}
 	}
 	MenuRendering();
+		
