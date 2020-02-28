@@ -18,7 +18,7 @@ header {
     list-style-type: none;
     height: 50px;
 }
-.navigation-list{
+.navigation-li{
 	color:black;
 	outline: none;
 	margin-right: 25px;
