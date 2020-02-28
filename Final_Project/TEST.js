@@ -63,7 +63,7 @@ function OpenMenuCustom (event){
 	MenuCustom.classList.add('show');
 }
 Custom.addEventListener('click', OpenMenuCustom);
-MenuSave.addEventListener('click', CloseMenuCustom);
+//MenuSave.addEventListener('click', CloseMenuCustom);
 var opt = document.getElementById('custOptions');
 // var optDelete = opt.querySelectorAll('.DeleteFunc');
 // 	optDelete.forEach(function(item){
