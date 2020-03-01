@@ -1,4 +1,5 @@
 import someFunction from './demo/someFn';
+import {mainControl} from './MainController';
 
 console.log('webpack is working');
 /*
@@ -6,4 +7,5 @@ console.log('webpack is working');
 */
 document.addEventListener('DOMContentLoaded', () => {
     someFunction();
+    mainControl();
 });

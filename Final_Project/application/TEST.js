@@ -17,6 +17,7 @@ var MenuSave = document.getElementById('SaveMenu');
 var MenuCustom = document.getElementById('MainCustomMenu');
 var MenuCustomBlock = document.getElementById('CustomMenuBlock');
 var AddList = document.getElementById('AddNewMenu');
+var addNews = document.getElementById('AddNewNews');
 var Counter = 0;
 var Counter_2 = 0;
 var Counter_3 = 0;
@@ -63,7 +64,7 @@ function OpenMenuCustom (event){
 	MenuCustom.classList.add('show');
 }
 Custom.addEventListener('click', OpenMenuCustom);
-//MenuSave.addEventListener('click', CloseMenuCustom);
+MenuSave.addEventListener('click', CloseMenuCustom);
 var opt = document.getElementById('custOptions');
 		var CourseObject = [];
 		var NewsObject = [];
@@ -71,19 +72,18 @@ var opt = document.getElementById('custOptions');
 		var myObj2 = {};
 		var myObj = {};
 		var myObj3 = {};
-		var MenuFromLocal = localStorage.getItem('MenuObj');
-		var ParsedMenu = JSON.parse(MenuFromLocal);
-
-    var DataFromLocal = localStorage.getItem('CourseObject');
-    var NewsFromLocal = localStorage.getItem('NewsObject');
     if (DataFromLocal == null){
     	localStorage.setItem('CourseObject', JSON.stringify(CourseObject));
     }
     if (NewsFromLocal == null){
     	localStorage.setItem('NewsObject', JSON.stringify(NewsObject));
     }
+    var DataFromLocal = localStorage.getItem('CourseObject');
+    var NewsFromLocal = localStorage.getItem('NewsObject');
+    var MenuFromLocal = localStorage.getItem('MenuObj');
     var ParsedData = JSON.parse(DataFromLocal);
-    var ParsedNews = JSON.parse(NewsFromLocal); 
+    var ParsedNews = JSON.parse(NewsFromLocal);
+    var ParsedMenu = JSON.parse(MenuFromLocal); 
     
 class MyCourse {
 	constructor(){
@@ -265,6 +265,7 @@ class News {
 				if (idblock == idOfNews){
 					item.remove();
 					ParsedNews.splice(idOfNews - 1, 1);
+					localStorage.setItem('NewsObject', JSON.stringify(ParsedNews));
 				}
 			})
 		}
@@ -323,7 +324,7 @@ class News {
 		MyNews.render();
     	localStorage.setItem('NewsID'+Counter_2, JSON.stringify(myObj2));
 	} 
-	var addNews = document.getElementById('AddNewNews');
+	
 		addNews.addEventListener('click',NewsAdd);
 	 
 
@@ -337,10 +338,16 @@ class News {
 		event.target.parentNode.remove();
 		let News = NewsBlock.querySelectorAll('.NewsData');
 			News.forEach(function(item){
+			console.log('lol');
 				let idOfNews = Number(item.dataset.id);
 				if (idblock == idOfNews){
 					item.remove();
-					ParsedNews.splice(idOfNews - 1, 1);
+					for (var i = 0; i<ParsedNews.length; i++){
+						if (idOfNews -1 == i){
+							ParsedNews.splice(i, 1);
+							localStorage.setItem('NewsObject', JSON.stringify(ParsedNews));
+						}
+					}
 				}
 			})
 		}
@@ -517,3 +524,5 @@ class Menu {
 		}
 	}
 	MenuRendering();
+
+	export {Menu,News,MyCourse};
