@@ -14,8 +14,8 @@
 				let idOfNews = Number(item.dataset.id);
 				if (idblock == idOfNews){
 					item.remove();
-					ParsedNews.splice(idOfNews - 1, 1);
-					localStorage.setItem('NewsObject', JSON.stringify(ParsedNews));
+					MainData.News.splice(idOfNews - 1, 1);
+					localStorage.setItem('MyProject', JSON.stringify(MainData));
 				}
 			})
 		}
@@ -29,9 +29,9 @@
 					localStorage.setItem('NewsID'+Counter_2, JSON.stringify(myObj2));
 					let CrsObj = localStorage.getItem('NewsID'+Counter_2);
 					let Data = JSON.parse(CrsObj);
-					ParsedNews.push(Data);
+					MainData.News.push(Data);
 					localStorage.removeItem('NewsID'+Counter_2);
-  					localStorage.setItem('NewsObject', JSON.stringify(ParsedNews));
+  					localStorage.setItem('MyProject', JSON.stringify(MainData));
 				}
 			})
 	}

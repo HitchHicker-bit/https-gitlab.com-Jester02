@@ -324,12 +324,7 @@ class News {
 		MyNews.render();
     	localStorage.setItem('NewsID'+Counter_2, JSON.stringify(myObj2));
 	} 
-	
 		addNews.addEventListener('click',NewsAdd);
-	 
-
-
-
 	function RenderNews (){
 		let date = new Date();
 	function DeleteNews(event){
