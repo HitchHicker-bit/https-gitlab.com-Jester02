@@ -150,7 +150,7 @@ function AddNews(event){
     	localStorage.setItem('NewsID'+Counter_2, JSON.stringify(myObj2));
 	} 
 	addNews.addEventListener('click',NewsAdd);
-<<<<<<< HEAD
+
 	// function MenuRendering (){
 	// function addMenuList(event){
 	// 	let MenuItems = MenuBlock.querySelectorAll('.navigation-li');
@@ -168,9 +168,6 @@ function AddNews(event){
 	// 				}
 	// 			})
 	// 	}
-=======
-
->>>>>>> 6380d3a7f9e8397902e677d75a8a04a1f24ab350
 	// function removeMenuList(event){
 	// 	Counter_3--;
 	// 	let idblock = Number(event.target.parentNode.dataset.id);
@@ -202,17 +199,16 @@ function AddNews(event){
 	// 		<button class="DeleteFuncMenu" id="RemoveBtn">&#10006;</button>
 	// 		`;
 	// 		MenuCustomBlock.appendChild(listCust);
-<<<<<<< HEAD
+
 	// 		MenuCustomBlock.querySelectorAll('.DeleteFuncMenu').forEach(function(button){
 	// 			button.addEventListener('click', removeMenuList);
 	// 		})
 	// 		MenuCustomBlock.querySelectorAll('.ValuesOfMenuLink').forEach(function(input){
 	// 			input.addEventListener('change', addMenuList);
 	// 		})
-=======
 	// 		MenuCustomBlock.querySelector('.DeleteFuncMenu').addEventListener('click', removeMenuList);
 	// 		MenuCustomBlock.querySelector('.ValuesOfMenuLink').addEventListener('change', addMenuList);
->>>>>>> 6380d3a7f9e8397902e677d75a8a04a1f24ab350
+
 	// 			MenuCustomBlock.querySelectorAll('.ValuesOfMenuLink').forEach(function(item){
 	// 				MenuBlock.querySelectorAll('.navigation-li').forEach(function(item2){
 	// 					if (Number(item.dataset.id) == Number(item2.dataset.id)){
