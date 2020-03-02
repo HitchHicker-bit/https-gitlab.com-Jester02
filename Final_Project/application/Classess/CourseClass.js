@@ -28,9 +28,9 @@
 				localStorage.setItem('CourseID'+Counter, JSON.stringify(myObj));
 				let CrsObj = localStorage.getItem('CourseID'+Counter);
 				let Data = JSON.parse(CrsObj);
-				ParsedData.push(Data);
+				MainData.Courses.push(Data);
 				localStorage.removeItem('CourseID'+Counter);
-  				localStorage.setItem('CourseObject', JSON.stringify(ParsedData));
+  				localStorage.setItem('MyProject', JSON.stringify(MainData));
 			}
 		})
 	}
@@ -43,7 +43,7 @@
 				let idOfIconBlock = Number(block.dataset.id);
 				if (idblock == idOfIconBlock){
 					block.remove();
-					ParsedData.splice(idOfIconBlock - 1, 1);
+					MainData.Courses.splice(idOfIconBlock - 1, 1);
 				}
 			})
 	}
