@@ -7,7 +7,19 @@ export default class Menu {
 	addMenuList(event){
 		let MenuItems = MenuBlock.querySelectorAll('.navigation-li');
 		console.log(event.target.dataset.id);
-			
+			MenuItems.forEach(function(item){
+			let idOfList = Number(item.dataset.id);
+			if (Number(event.target.dataset.id) == idOfList){
+					item.textContent = event.target.value;
+					myObj3["list"] = event.target.value;
+					localStorage.setItem('ListID'+Counter_3, JSON.stringify(myObj3));
+					let CrsObj = localStorage.getItem('ListID'+Counter_3);
+					let Data = JSON.parse(CrsObj);
+					ParsedMenu.push(Data);
+					localStorage.removeItem('ListID'+Counter_3);
+  					localStorage.setItem('MenuObj', JSON.stringify(ParsedMenu));
+					}
+				})
 			}
 	removeMenuList(event){
 		Counter_3--;
