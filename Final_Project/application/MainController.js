@@ -28,6 +28,8 @@ const mainControl = () => {
 	global.MenuSave = document.getElementById('SaveMenu');
 	global.addNews = document.getElementById('AddNewNews');
 	global.AddList = document.getElementById('AddNewMenu');
+	global.MyLogo = document.getElementById('MyLogo');
+	global.ImgChanger = document.getElementById('ImageChanger');
 	global.ParsedData = localStorage.getItem('MyProject');
 	global.MainData = JSON.parse(ParsedData);
 	global.myObj2 = {};

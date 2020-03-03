@@ -228,5 +228,22 @@ function AddNews(event){
 	// MenuRendering();
 	RenderNews();
 	RenderSave();	
-}
+	 function showFile(e) {
+    var files = e.target.files;
+        console.log(files);
+   		for (var i = 0, f; f = files[i]; i++) {
+      		if (!f.type.match('image.*')) continue;
+      			var fr = new FileReader();
+      			fr.onload = (function(theFile) {
+        			return function(e) {
+          				MyLogo.setAttribute('src', e.target.result);
+          				localStorage.setItem('Logo', e.target.result);
+        			};
+      			})(f);
+      		fr.readAsDataURL(f);
+    		}
+  		}
+	}
+	ImgChanger.addEventListener('change', showFile, false);
+	MyLogo.setAttribute('src', localStorage.getItem('Logo'));
 export {BaseBlock};
