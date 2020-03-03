@@ -1,6 +1,7 @@
 import {MyCourse} from '.././Classess/CourseClass';
 import {News} from '.././Classess/NewsClass';
 import {Menu} from '.././Classess/MenuAndLogo';
+// import Logotype from '.././Classess/MenuAndLogo';
 
 const BaseBlock = () => {
 function RenderSave (){
@@ -227,8 +228,8 @@ function AddNews(event){
 	// AddList.addEventListener('click', MenuAdding);
 	// MenuRendering();
 	RenderNews();
-	RenderSave();	
-	 function showFile(e) {
+	RenderSave();
+	function showFile(e) {
     var files = e.target.files;
         console.log(files);
    		for (var i = 0, f; f = files[i]; i++) {
@@ -243,7 +244,8 @@ function AddNews(event){
       		fr.readAsDataURL(f);
     		}
   		}
-	}
-	ImgChanger.addEventListener('change', showFile, false);
+
+	ChangeLogo.addEventListener('change', showFile, false);
 	MyLogo.setAttribute('src', localStorage.getItem('Logo'));
-export {BaseBlock};
+}
+	export {BaseBlock};
