@@ -15,9 +15,9 @@ export default class Menu {
 					localStorage.setItem('ListID'+Counter_3, JSON.stringify(myObj3));
 					let CrsObj = localStorage.getItem('ListID'+Counter_3);
 					let Data = JSON.parse(CrsObj);
-					ParsedMenu.push(Data);
+					MainData.Menu.push(Data);
 					localStorage.removeItem('ListID'+Counter_3);
-  					localStorage.setItem('MenuObj', JSON.stringify(ParsedMenu));
+  					localStorage.setItem('MenuObj', JSON.stringify(MainData));
 					}
 				})
 			}
@@ -30,8 +30,8 @@ export default class Menu {
 				let idOfList = Number(item.dataset.id);
 				if (idblock == idOfList){
 					item.remove();
-					ParsedMenu.splice(idOfList - 1, 1);
-					localStorage.setItem('MenuObj', JSON.stringify(ParsedMenu));
+					MainData.Menu.splice(idOfList - 1, 1);
+					localStorage.setItem('MenuObj', JSON.stringify(MainData));
 				}
 			})
 		}

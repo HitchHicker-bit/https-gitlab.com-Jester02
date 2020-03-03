@@ -152,81 +152,81 @@ function AddNews(event){
 	} 
 	addNews.addEventListener('click',NewsAdd);
 
-	// function MenuRendering (){
-	// function addMenuList(event){
-	// 	let MenuItems = MenuBlock.querySelectorAll('.navigation-li');
-	// 		MenuItems.forEach(function(item){
-	// 		let idOfList = Number(item.dataset.id);
-	// 		console.log(item.dataset.id)
-	// 		if (Number(event.target.dataset.id) == idOfList){
-	// 			item.innerText = event.target.value;
-	// 				for (var i = 0; i<ParsedMenu.length; i++){
-	// 					if (idOfList - 1 == i){
-	// 						ParsedMenu[i].list = event.target.value;
-	// 						localStorage.setItem('MenuObj', JSON.stringify(ParsedMenu));
-	// 					}
-	// 				}
-	// 				}
-	// 			})
-	// 	}
-	// function removeMenuList(event){
-	// 	Counter_3--;
-	// 	let idblock = Number(event.target.parentNode.dataset.id);
-	// 	event.target.parentNode.remove();
-	// 	let MenuItems = MenuBlock.querySelectorAll('.navigation-li');
-	// 		MenuItems.forEach(function(item){
-	// 			let idOfList = Number(item.dataset.id);
-	// 			if (idblock == idOfList){
-	// 				item.remove();
-	// 				ParsedMenu.splice(idOfList - 1, 1);
-	// 				localStorage.setItem('MenuObj', JSON.stringify(ParsedMenu));
-	// 			}
-	// 		})
-	// 	}
-	// 	for (var i = 0; i<ParsedMenu.length; i++){
-	// 		Counter_3++;
-	// 		let list = document.createElement('a');
-	// 		list.className = "navigation-li";
-	// 		list.dataset.id = Counter_3;
-	// 		list.innerText = ParsedMenu[i].list;
-	// 		list.href = 'test';
-	// 		MenuBlock.appendChild(list);
-	// 	let listCust = document.createElement('div');
-	// 		listCust.className = 'ValuesOfMenu';
-	// 		listCust.dataset.id = Counter_3;
-	// 		listCust.innerHTML = 
-	// 		`
-	// 		<input class="ValuesOfMenuLink" data-id="${Counter_3}">
-	// 		<button class="DeleteFuncMenu" id="RemoveBtn">&#10006;</button>
-	// 		`;
-	// 		MenuCustomBlock.appendChild(listCust);
+	function MenuRendering (){
+	function addMenuList(event){
+		let MenuItems = MenuBlock.querySelectorAll('.navigation-li');
+			MenuItems.forEach(function(item){
+			let idOfList = Number(item.dataset.id);
+			console.log(item.dataset.id)
+			if (Number(event.target.dataset.id) == idOfList){
+				item.innerText = event.target.value;
+					for (var i = 0; i<MainData.Menu.length; i++){
+						if (idOfList - 1 == i){
+							MainData.Menu[i].list = event.target.value;
+							localStorage.setItem('MyProject', JSON.stringify(MainData));
+						}
+					}
+					}
+				})
+		}
+	function removeMenuList(event){
+		Counter_3--;
+		let idblock = Number(event.target.parentNode.dataset.id);
+		event.target.parentNode.remove();
+		let MenuItems = MenuBlock.querySelectorAll('.navigation-li');
+			MenuItems.forEach(function(item){
+				let idOfList = Number(item.dataset.id);
+				if (idblock == idOfList){
+					item.remove();
+					MainData.Menu.splice(idOfList - 1, 1);
+					localStorage.setItem('MyProject', JSON.stringify(MainData));
+				}
+			})
+		}
+		for (var i = 0; i<MainData.Menu.length; i++){
+			Counter_3++;
+			let list = document.createElement('a');
+			list.className = "navigation-li";
+			list.dataset.id = Counter_3;
+			list.innerText = MainData.Menu[i].list;
+			list.href = 'test';
+			MenuBlock.appendChild(list);
+		let listCust = document.createElement('div');
+			listCust.className = 'ValuesOfMenu';
+			listCust.dataset.id = Counter_3;
+			listCust.innerHTML = 
+			`
+			<input class="ValuesOfMenuLink" data-id="${Counter_3}">
+			<button class="DeleteFuncMenu" id="RemoveBtn">&#10006;</button>
+			`;
+			MenuCustomBlock.appendChild(listCust);
 
-	// 		MenuCustomBlock.querySelectorAll('.DeleteFuncMenu').forEach(function(button){
-	// 			button.addEventListener('click', removeMenuList);
-	// 		})
-	// 		MenuCustomBlock.querySelectorAll('.ValuesOfMenuLink').forEach(function(input){
-	// 			input.addEventListener('change', addMenuList);
-	// 		})
-	// 		MenuCustomBlock.querySelector('.DeleteFuncMenu').addEventListener('click', removeMenuList);
-	// 		MenuCustomBlock.querySelector('.ValuesOfMenuLink').addEventListener('change', addMenuList);
+			MenuCustomBlock.querySelectorAll('.DeleteFuncMenu').forEach(function(button){
+				button.addEventListener('click', removeMenuList);
+			})
+			MenuCustomBlock.querySelectorAll('.ValuesOfMenuLink').forEach(function(input){
+				input.addEventListener('change', addMenuList);
+			})
+			MenuCustomBlock.querySelector('.DeleteFuncMenu').addEventListener('click', removeMenuList);
+			MenuCustomBlock.querySelector('.ValuesOfMenuLink').addEventListener('change', addMenuList);
 
-	// 			MenuCustomBlock.querySelectorAll('.ValuesOfMenuLink').forEach(function(item){
-	// 				MenuBlock.querySelectorAll('.navigation-li').forEach(function(item2){
-	// 					if (Number(item.dataset.id) == Number(item2.dataset.id)){
-	// 						item.value = item2.innerText;
-	// 					}
-	// 				})
-	// 			})
-	// 	}
-	// }
-	// function MenuAdding (event) {
-	// 	Counter_3++;
-	// 	let MyList = new Menu();
-	// 	MyList.render();
-	// 	localStorage.setItem('ListID'+Counter_3, JSON.stringify(myObj3));
-	// }
-	// AddList.addEventListener('click', MenuAdding);
-	// MenuRendering();
+				MenuCustomBlock.querySelectorAll('.ValuesOfMenuLink').forEach(function(item){
+					MenuBlock.querySelectorAll('.navigation-li').forEach(function(item2){
+						if (Number(item.dataset.id) == Number(item2.dataset.id)){
+							item.value = item2.innerText;
+						}
+					})
+				})
+		}
+	}
+	function MenuAdding (event) {
+		Counter_3++;
+		let MyList = new Menu();
+		MyList.render();
+		localStorage.setItem('ListID'+Counter_3, JSON.stringify(myObj3));
+	}
+	AddList.addEventListener('click', MenuAdding);
+	MenuRendering();
 	RenderNews();
 	RenderSave();
 	function showFile(e) {
