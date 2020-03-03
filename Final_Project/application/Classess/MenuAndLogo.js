@@ -17,7 +17,7 @@ export default class Menu {
 					let Data = JSON.parse(CrsObj);
 					MainData.Menu.push(Data);
 					localStorage.removeItem('ListID'+Counter_3);
-  					localStorage.setItem('MenuObj', JSON.stringify(MainData));
+  					localStorage.setItem('MyProject', JSON.stringify(MainData));
 					}
 				})
 			}
@@ -31,7 +31,7 @@ export default class Menu {
 				if (idblock == idOfList){
 					item.remove();
 					MainData.Menu.splice(idOfList - 1, 1);
-					localStorage.setItem('MenuObj', JSON.stringify(MainData));
+					localStorage.setItem('MyProject', JSON.stringify(MainData));
 				}
 			})
 		}
