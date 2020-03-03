@@ -5,18 +5,13 @@ export default class Menu {
 		this.removeMenuList = this.removeMenuList.bind(this);
 	}
 	addMenuList(event){
-		let MenuItems = MenuBlock.querySelectorAll('.navigation-li');
+		let MenuItems = MenuBlock.querySelectorAll('.navigation-list');
 		console.log(event.target.dataset.id);
 			MenuItems.forEach(function(item){
 			let idOfList = Number(item.dataset.id);
 			if (Number(event.target.dataset.id) == idOfList){
 					item.textContent = event.target.value;
-					myObj3["list"] = event.target.value;
-					localStorage.setItem('ListID'+Counter_3, JSON.stringify(myObj3));
-					let CrsObj = localStorage.getItem('ListID'+Counter_3);
-					let Data = JSON.parse(CrsObj);
-					MainData.Menu.push(Data);
-					localStorage.removeItem('ListID'+Counter_3);
+					MainData.Menu.push(event.target.value);
   					localStorage.setItem('MyProject', JSON.stringify(MainData));
 					}
 				})
@@ -25,7 +20,7 @@ export default class Menu {
 		Counter_3--;
 		let idblock = Number(event.target.parentNode.dataset.id);
 		event.target.parentNode.remove();
-		let MenuItems = MenuBlock.querySelectorAll('.navigation-li');
+		let MenuItems = MenuBlock.querySelectorAll('.navigation-list');
 			MenuItems.forEach(function(item){
 				let idOfList = Number(item.dataset.id);
 				if (idblock == idOfList){
@@ -36,10 +31,13 @@ export default class Menu {
 			})
 		}
 	render(){
-		let a = document.createElement('a');
+		let a = document.createElement('div');
 			a.className = 'navigation-li';
 			a.dataset.id = Counter_3;
-			a.href = 'test';
+			a.innerHTML = 
+			`
+			<a class="navigation-list" href="#test" data-id="${Counter_3}"></a>
+			`;
 			MenuBlock.appendChild(a);
 		let listCust = document.createElement('div');
 			listCust.className = 'ValuesOfMenu';

@@ -33,7 +33,6 @@ const mainControl = () => {
 	global.MainData = JSON.parse(ParsedData);
 	global.myObj2 = {};
 	global.myObj = {};
-	global.myObj3 = {};
 	baseHandlers();
 	BaseBlock();
 }

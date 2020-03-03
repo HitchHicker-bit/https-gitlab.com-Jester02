@@ -162,7 +162,7 @@ function AddNews(event){
 				item.innerText = event.target.value;
 					for (var i = 0; i<MainData.Menu.length; i++){
 						if (idOfList - 1 == i){
-							MainData.Menu[i].list = event.target.value;
+							MainData.Menu[i] = event.target.value;
 							localStorage.setItem('MyProject', JSON.stringify(MainData));
 						}
 					}
@@ -185,11 +185,13 @@ function AddNews(event){
 		}
 		for (var i = 0; i<MainData.Menu.length; i++){
 			Counter_3++;
-			let list = document.createElement('a');
+			let list = document.createElement('div');
 			list.className = "navigation-li";
 			list.dataset.id = Counter_3;
-			list.innerText = MainData.Menu[i].list;
-			list.href = 'test';
+			list.innerHTML = 
+			`
+			<a class="navigation-list" href="#test" data-id="${Counter_3}">${MainData.Menu[i]}</a>
+			`;
 			MenuBlock.appendChild(list);
 		let listCust = document.createElement('div');
 			listCust.className = 'ValuesOfMenu';
@@ -223,7 +225,6 @@ function AddNews(event){
 		Counter_3++;
 		let MyList = new Menu();
 		MyList.render();
-		localStorage.setItem('ListID'+Counter_3, JSON.stringify(myObj3));
 	}
 	AddList.addEventListener('click', MenuAdding);
 	MenuRendering();
