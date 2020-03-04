@@ -31,6 +31,7 @@ const mainControl = () => {
 	global.MyLogo = document.getElementById('MyLogo');
 	global.ParsedData = localStorage.getItem('MyProject');
 	global.MainData = JSON.parse(ParsedData);
+	global.myObj3 = {};
 	global.myObj2 = {};
 	global.myObj = {};
 	baseHandlers();

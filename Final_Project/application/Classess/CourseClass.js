@@ -7,29 +7,26 @@
 	}
 	addTitle(event){
 		let newTitle = CourseBlock.querySelectorAll('.nameOfCourse')
+		let CourseId = event.target.dataset.id;
 		newTitle.forEach(function(item){
 			let DataTitleId = Number(item.dataset.id);
 			if (Number(event.target.dataset.id) == DataTitleId){
 				item.textContent = null;
 				item.textContent += event.target.value;
-				myObj["title"] = event.target.value;
-				localStorage.setItem('CourseID'+Counter, JSON.stringify(myObj));
+				MainData.Courses[CourseId - 1].title = event.target.value;
+				localStorage.setItem('MyProject', JSON.stringify(MainData));
 			}
 		})
 	}
 	addURL(event){
 		let newURL = CourseBlock.querySelectorAll('.icons');
+		let CourseId = event.target.dataset.id;
 		newURL.forEach(function(item){
 			let DataIdUrl = Number(item.dataset.id);
 			if (Number(event.target.dataset.id) == DataIdUrl){
 				item.removeAttribute('src');
 				item.setAttribute('src', event.target.value);
-				myObj["URL"] = event.target.value;
-				localStorage.setItem('CourseID'+Counter, JSON.stringify(myObj));
-				let CrsObj = localStorage.getItem('CourseID'+Counter);
-				let Data = JSON.parse(CrsObj);
-				MainData.Courses.push(Data);
-				localStorage.removeItem('CourseID'+Counter);
+				MainData.Courses[CourseId - 1].URL = event.target.value;
   				localStorage.setItem('MyProject', JSON.stringify(MainData));
 			}
 		})

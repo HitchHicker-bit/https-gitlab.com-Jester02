@@ -21,16 +21,12 @@
 		}
 	AddNews(event){
 		let News = NewsBlock.querySelectorAll('.areaNews');
+		let NewsId = event.target.dataset.id;
 			News.forEach(function(text){
 				let idOfNews = Number(text.dataset.id);
 				if (Number(event.target.dataset.id) == idOfNews){
 					text.value = event.target.value;
-					myObj2["Text"] = event.target.value;
-					localStorage.setItem('NewsID'+Counter_2, JSON.stringify(myObj2));
-					let CrsObj = localStorage.getItem('NewsID'+Counter_2);
-					let Data = JSON.parse(CrsObj);
-					MainData.News.push(Data);
-					localStorage.removeItem('NewsID'+Counter_2);
+					MainData.News[NewsId - 1].Text = event.target.value
   					localStorage.setItem('MyProject', JSON.stringify(MainData));
 				}
 			})

@@ -84,7 +84,8 @@ function RenderSave (){
 		Counter++;
 		let Course = new MyCourse();
 		Course.render();
-    	localStorage.setItem('CourseID'+Counter, JSON.stringify(myObj));
+    	MainData.Courses.push(myObj);
+    	localStorage.setItem('MyProject', JSON.stringify(MainData));
 	}
 	AddNewCourse.addEventListener('click', AddCourse);
 	function RenderNews (){
@@ -148,13 +149,14 @@ function AddNews(event){
 		Counter_2++;
 		let MyNews = new News();
 		MyNews.render();
-    	localStorage.setItem('NewsID'+Counter_2, JSON.stringify(myObj2));
+    	MainData.News.push(myObj2);
+    	localStorage.setItem('MyProject', JSON.stringify(MainData));
 	} 
 	addNews.addEventListener('click',NewsAdd);
 
 	function MenuRendering (){
 	function addMenuList(event){
-		let MenuItems = MenuBlock.querySelectorAll('.navigation-li');
+		let MenuItems = MenuBlock.querySelectorAll('.navigation-list');
 			MenuItems.forEach(function(item){
 			let idOfList = Number(item.dataset.id);
 			console.log(item.dataset.id)
@@ -169,6 +171,11 @@ function AddNews(event){
 					}
 				})
 		}
+	function addHrefList(event){
+		let inputMenuId = event.target.dataset.id;
+		MainData.Menu[inputMenuId - 1].href = event.target.value;
+		localStorage.setItem('MyProject', JSON.stringify(MainData));
+	}
 	function removeMenuList(event){
 		Counter_3--;
 		let idblock = Number(event.target.parentNode.dataset.id);
@@ -185,12 +192,15 @@ function AddNews(event){
 		}
 		for (var i = 0; i<MainData.Menu.length; i++){
 			Counter_3++;
+			if (localStorage.getItem('MenuID'+Counter_3) != null){
+				localStorage.removeItem('MenuID'+Counter_3);
+			}
 			let list = document.createElement('div');
 			list.className = "navigation-li";
 			list.dataset.id = Counter_3;
 			list.innerHTML = 
 			`
-			<a class="navigation-list" href="#test" data-id="${Counter_3}">${MainData.Menu[i]}</a>
+			<a class="navigation-list" href="#${MainData.Menu[i].href}" data-id="${Counter_3}">${MainData.Menu[i].value}</a>
 			`;
 			MenuBlock.appendChild(list);
 		let listCust = document.createElement('div');
@@ -199,19 +209,13 @@ function AddNews(event){
 			listCust.innerHTML = 
 			`
 			<input class="ValuesOfMenuLink" data-id="${Counter_3}">
+			<input class="HrefOfMenu" data-id="${Counter_3}">
 			<button class="DeleteFuncMenu" id="RemoveBtn">&#10006;</button>
 			`;
 			MenuCustomBlock.appendChild(listCust);
-
-			MenuCustomBlock.querySelectorAll('.DeleteFuncMenu').forEach(function(button){
-				button.addEventListener('click', removeMenuList);
-			})
-			MenuCustomBlock.querySelectorAll('.ValuesOfMenuLink').forEach(function(input){
-				input.addEventListener('change', addMenuList);
-			})
-			MenuCustomBlock.querySelector('.DeleteFuncMenu').addEventListener('click', removeMenuList);
-			MenuCustomBlock.querySelector('.ValuesOfMenuLink').addEventListener('change', addMenuList);
-
+			listCust.querySelector('.DeleteFuncMenu').addEventListener('click', removeMenuList);
+			listCust.querySelector('.ValuesOfMenuLink').addEventListener('change', addMenuList);
+			listCust.querySelector('.HrefOfMenu').addEventListener('change', addHrefList);
 				MenuCustomBlock.querySelectorAll('.ValuesOfMenuLink').forEach(function(item){
 					MenuBlock.querySelectorAll('.navigation-li').forEach(function(item2){
 						if (Number(item.dataset.id) == Number(item2.dataset.id)){
@@ -219,12 +223,21 @@ function AddNews(event){
 						}
 					})
 				})
+			MenuCustomBlock.querySelectorAll('.HrefOfMenu').forEach(function(item3){
+				MenuBlock.querySelectorAll('.navigation-li').forEach(function(item4){
+					if (Number(item3.dataset.id) == Number(item4.dataset.id)){
+						item3.value = item4.href;
+					}
+				})
+			})
 		}
 	}
 	function MenuAdding (event) {
 		Counter_3++;
 		let MyList = new Menu();
 		MyList.render();
+		MainData.Menu.push(myObj3);
+		localStorage.setItem('MyProject', JSON.stringify(MainData));
 	}
 	AddList.addEventListener('click', MenuAdding);
 	MenuRendering();
@@ -249,4 +262,5 @@ function AddNews(event){
 	ChangeLogo.addEventListener('change', showFile, false);
 	MyLogo.setAttribute('src', localStorage.getItem('Logo'));
 }
+
 	export {BaseBlock};
