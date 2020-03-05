@@ -1,7 +1,7 @@
 import {MyCourse} from '.././Classess/CourseClass';
 import {News} from '.././Classess/NewsClass';
 import {Menu} from '.././Classess/MenuAndLogo';
-// import Logotype from '.././Classess/MenuAndLogo';
+
 
 const BaseBlock = () => {
 	function AddCourse(event) {
@@ -41,7 +41,9 @@ const BaseBlock = () => {
   		}
 
 	ChangeLogo.addEventListener('change', showFile, false);
-	MyLogo.setAttribute('src',localStorage.getItem('Logo'))
+	if (localStorage.getItem('Logo') == null){
+		MyLogo.setAttribute('src','https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtZs-KpGcZfvbCVPrpwO9DdgS83RQXHJnajGbJQRC4ep3oqXYg');
+	}
 	AddNewMenu.addEventListener('click', AddMenu);
 	AddNewNews.addEventListener('click' , AddNews);
 	AddNewCourse.addEventListener('click', AddCourse);
