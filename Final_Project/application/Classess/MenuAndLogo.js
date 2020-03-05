@@ -1,58 +1,74 @@
+import uniqid from 'uniqid'; 
+
+import StorageController from '../storageController';
 
 export default class Menu {
-	constructor(){
+	constructor(params = {}){
+		const { id, title, href } = params;
 		this.addMenuList = this.addMenuList.bind(this);
 		this.removeMenuList = this.removeMenuList.bind(this);
 		this.addHrefList = this.addHrefList.bind(this);
+		this.id = id || uniqid();
+		this.title = title || "";
+		this.href = href || "";
+		this.node = null;
+		this.type = "menu";
+		StorageController.createItem( this );
 	}
 	addMenuList(event){
-		let inputMenuId = event.target.dataset.id;
+		const MenuBlock = document.getElementById('navigation-block');
 		let inputMenuValue = event.target.value;
-		MenuBlock.querySelector('.navigation-list[data-id="'+inputMenuId+'"]').textContent = inputMenuValue;
-		MainData.Menu[inputMenuId -1].value = inputMenuValue;
-		localStorage.setItem('MyProject', JSON.stringify(MainData));
+		this.title = inputMenuValue;
+		this.render( MenuBlock );
+		StorageController.saveData( this );
 	}
 	addHrefList(event){
-		let inputMenuId = event.target.dataset.id;
-		MainData.Menu[inputMenuId - 1].href = event.target.value;
-		localStorage.setItem('MyProject', JSON.stringify(MainData));
+		const MenuBlock = document.getElementById('navigation-block');
+		let inputMenuHref = event.target.value;
+		this.href = inputMenuHref;
+		this.render( MenuBlock);
+		StorageController.saveData(this);
 	}
 	removeMenuList(event){
-		Counter_3--;
-		let idblock = Number(event.target.parentNode.dataset.id);
-		event.target.parentNode.remove();
-		let MenuItems = MenuBlock.querySelectorAll('.navigation-li');
-			MenuItems.forEach(function(item){
-				let idOfList = Number(item.dataset.id);
-				if (idblock == idOfList){
-					item.remove();
-					MainData.Menu.splice(idOfList - 1, 1);
-					localStorage.setItem('MyProject', JSON.stringify(MainData));
-				}
-			})
+		event.target.closest('.ValuesOfMenu').remove();
+		this.node.remove();
+		StorageController.deleteData(this);
 		}
-	render(){
-		let a = document.createElement('div');
-			a.className = 'navigation-li';
-			a.dataset.id = Counter_3;
-			a.innerHTML = 
-			`
-			<a class="navigation-list" href="#test" data-id="${Counter_3}"></a>
-			`;
-			MenuBlock.appendChild(a);
+	renderOptions(){
+		const MenuCustomBlock = document.getElementById('CustomMenuBlock');
 		let listCust = document.createElement('div');
 			listCust.className = 'ValuesOfMenu';
-			listCust.dataset.id = Counter_3;
+			listCust.dataset.id = this.id;
 			listCust.innerHTML = 
 			`
-			<input class="ValuesOfMenuLink" data-id="${Counter_3}">
-			<input class="HrefOfMenu" data-id="${Counter_3}">
-			<button class="DeleteFuncMenu" id="RemoveBtn">&#10006;</button>
+			<input class="_ValMenu ValuesOfMenuLink" value="${this.title}">
+			<input class="_Href HrefOfMenu" value="${this.href}">
+			<button class="_DelMenu DeleteFuncMenu" id="RemoveBtn">&#10006;</button>
 			`;
 			MenuCustomBlock.appendChild(listCust);
 			listCust.querySelector('.DeleteFuncMenu').addEventListener('click', this.removeMenuList);
 			listCust.querySelector('.ValuesOfMenuLink').addEventListener('change', this.addMenuList);
 			listCust.querySelector('.HrefOfMenu').addEventListener('change', this.addHrefList);
+	}
+	render (target){
+		let	aList = null;
+		if( this.node ){
+			aList = this.node;
+		} else {
+			aList = document.createElement('div');
+			this.node =	aList;
+			target.appendChild(aList);
+		}
+
+		aList.className = "navigation-list";
+		aList.dataset.id = this.id;
+
+		if( this.href !== null || this.title !== null){
+			aList.innerHTML = 
+			`
+			<a class="navigation-li" href="${this.href}">${this.title}</a>
+			`;
+		}
 	}
 }
 

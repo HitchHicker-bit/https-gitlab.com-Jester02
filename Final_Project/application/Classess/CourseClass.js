@@ -1,74 +1,83 @@
 
-	export default class MyCourse {
-	constructor(){
+import uniqid from 'uniqid'; 
+
+import StorageController from '../storageController';
+
+
+export default class MyCourse {
+	constructor( params = {} ){
+
+		const { id, title, url } = params;
+
+		this.id = id || uniqid();
+		this.title = title || "";
+		this.url = url || "";
+		this.node = null;
+		this.type = "course";
+		StorageController.createItem( this );
 		this.deleteCourse = this.deleteCourse.bind(this);
 		this.addTitle = this.addTitle.bind(this);
 		this.addURL = this.addURL.bind(this);
 	}
 	addTitle(event){
-		let newTitle = CourseBlock.querySelectorAll('.nameOfCourse')
-		let CourseId = event.target.dataset.id;
-		newTitle.forEach(function(item){
-			let DataTitleId = Number(item.dataset.id);
-			if (Number(event.target.dataset.id) == DataTitleId){
-				item.textContent = null;
-				item.textContent += event.target.value;
-				MainData.Courses[CourseId - 1].title = event.target.value;
-				localStorage.setItem('MyProject', JSON.stringify(MainData));
-			}
-		})
+		const CourseBlock = document.getElementById('CoursesBlock');
+		let newTitleValue = event.target.value;
+		this.title = newTitleValue;
+		this.render( CourseBlock );
+		StorageController.saveData( this );
 	}
 	addURL(event){
-		let newURL = CourseBlock.querySelectorAll('.icons');
-		let CourseId = event.target.dataset.id;
-		newURL.forEach(function(item){
-			let DataIdUrl = Number(item.dataset.id);
-			if (Number(event.target.dataset.id) == DataIdUrl){
-				item.removeAttribute('src');
-				item.setAttribute('src', event.target.value);
-				MainData.Courses[CourseId - 1].URL = event.target.value;
-  				localStorage.setItem('MyProject', JSON.stringify(MainData));
-			}
-		})
+		const CourseBlock = document.getElementById('CoursesBlock');
+		let newUrlValue = event.target.value;
+		this.url = newUrlValue;
+		this.render( CourseBlock );
+		StorageController.saveData( this );
 	}
 	deleteCourse(event){
-		Counter--;
-		let idblock = Number(event.target.parentNode.dataset.id);
-		event.target.parentNode.remove();
-		let iconsId = CourseBlock.querySelectorAll('.iconsBlock');
-			iconsId.forEach(function(block){
-				let idOfIconBlock = Number(block.dataset.id);
-				if (idblock == idOfIconBlock){
-					block.remove();
-					MainData.Courses.splice(idOfIconBlock - 1, 1);
-				}
-			})
+		event.target.closest('.DataOfCourses').remove();
+		this.node.remove();
+		StorageController.deleteData (this);
 	}
-	render(){
+	renderOptions(){
+		const opt = document.getElementById('custOptions');
+
 		let MyNewCourse = document.createElement('div');
 			MyNewCourse.className = "DataOfCourses";
-			MyNewCourse.dataset.id = Counter;
+			MyNewCourse.dataset.id = this.id;
 			MyNewCourse.innerHTML = 
 			`
-			<input class="titleCourse" type="text" name="name"data-id="${Counter}">
-			<input class="titleURL" type="url" name="url" data-id="${Counter}">
-			<button class="DeleteFunc" id="RemoveBtn">&#10006;</button>
+				<input class="_title titleCourse" type="text" name="name" value="${this.title}">
+				<input class="_url titleURL" type="url" name="url" value="${this.url}">
+				<button class="_del DeleteFunc" id="RemoveBtn">&#10006;</button>
 			`;
 			opt.appendChild(MyNewCourse);
-		MyNewCourse.querySelector('.titleCourse').addEventListener('input', this.addTitle);
-		MyNewCourse.querySelector('.titleURL').addEventListener('change', this.addURL);
-		MyNewCourse.querySelector('.DeleteFunc').addEventListener('click', this.deleteCourse);
-		
-		let MyNewCourseShow = document.createElement('div');
-			MyNewCourseShow.className = "iconsBlock";
-			MyNewCourseShow.dataset.id = Counter;
+
+			MyNewCourse.querySelector('._title').addEventListener('change', this.addTitle);
+			MyNewCourse.querySelector('._url').addEventListener('change', this.addURL);
+			MyNewCourse.querySelector('._del').addEventListener('click', this.deleteCourse);
+	}
+
+	render( target ){
+		let MyNewCourseShow = null;
+		if( this.node ){
+			MyNewCourseShow	= this.node;
+		} else {
+			MyNewCourseShow = document.createElement('div');
+			this.node = MyNewCourseShow;
+			target.appendChild(MyNewCourseShow);
+		}
+
+		MyNewCourseShow.className = "iconsBlock";
+		MyNewCourseShow.dataset.id = this.id;
+
+		if( this.url !== null || this.title !== null){
 			MyNewCourseShow.innerHTML = 
 			`
-			<img class="icons" src=""data-id="${Counter}" />
-			<span class="nameOfCourse"data-id="${Counter}"  id="nameOfCourse"></span>
+				<img class="icons" src="${this.url}" />
+				<span class="nameOfCourse" id="nameOfCourse">${this.title}</span>
 			`;
-			CourseBlock.appendChild(MyNewCourseShow);
-
+		}
 	}
 }
+
 export {MyCourse};

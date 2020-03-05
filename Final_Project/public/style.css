@@ -184,7 +184,7 @@ header {
     position: relative;
     height: 80%;
 }
-.ToCustomNews {
+._CustNews {
   width: 1000px;
   height: 150px;
   background:#e6e8e6;
@@ -211,7 +211,7 @@ header {
     position: relative;
     height: 80%;
 }
-.titleCourse {
+._title {
   width: 300px;
   height: 25px;
   background:#e6e8e6;
@@ -220,7 +220,7 @@ header {
   font-family: 'Play', sans-serif;
   outline: none;
 }
-.titleURL {
+._url {
   width: 300px;
   height: 25px;
   background:#e6e8e6;
@@ -244,14 +244,14 @@ header {
     background: none;
     margin-right: 40px;
 }
-.DeleteFunc {
+._del {
 	color: #8a0000;
     border: none;
     background: none;
     font-size: 35px;
     outline: none;
 }
-.DeleteFuncNews {
+._delNews {
 	color: #8a0000;
 	 font-size: 35px;
     border: none;
@@ -334,7 +334,7 @@ header {
     position: absolute;
     height: 80%;
 }
-.ValuesOfMenuLink {
+._ValMenu {
 	background: #e6e8e6;
     font-size: 15px;
     border: 1px solid #e6e8e6;
@@ -345,7 +345,7 @@ header {
     position: relative;
     display: inline-table;
 }
-.HrefOfMenu {
+._Href{
   background: #e6e8e6;
     font-size: 15px;
     border: 1px solid #e6e8e6;
@@ -370,7 +370,7 @@ header {
 .MenuCustom.show{
 	display: flex;
 }
-.DeleteFuncMenu {
+._DelMenu{
 	color: #8a0000;
     font-size: 35px;
     border: none;
